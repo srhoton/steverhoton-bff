@@ -1,0 +1,29 @@
+# AWS Configuration
+aws_region  = "us-east-1"
+environment = "prod"
+project     = "steverhoton-bff"
+
+# Domain Configuration
+domain_name    = "steverhoton.com"
+bff_subdomain  = "bff"
+auth_subdomain = "auth"
+
+# Cognito User Pool Configuration
+# Use either the pool ID (preferred) or name
+cognito_user_pool_id   = "us-east-1_plhb9FhBb"
+cognito_user_pool_name = "steverhoton-auth-prod-main-user-pool"
+
+# API Configuration
+graphql_query_name   = "validateAuthn"
+api_response_message = "Hello, authenticated user! You have successfully accessed the BFF."
+
+# Logging Configuration
+enable_logging      = true
+log_retention_days  = 14
+
+# Additional Tags (optional)
+tags = {
+  Owner       = "steverhoton"
+  Environment = "production"
+  CostCenter  = "engineering"
+}
