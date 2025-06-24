@@ -23,7 +23,7 @@ log_retention_days  = 14
 
 # Additional Tags (optional)
 tags = {
-  Owner       = "steve-rhoton"
+  Owner       = "steverhoton"
   Environment = "production"
   CostCenter  = "engineering"
 }
