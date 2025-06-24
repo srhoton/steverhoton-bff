@@ -168,9 +168,7 @@ resource "aws_appsync_graphql_api" "bff_api" {
     Name = "${var.project}-bff-api"
   })
 
-  depends_on = [
-    aws_iam_role_policy.appsync_logs
-  ]
+  depends_on = var.enable_logging ? [aws_iam_role_policy.appsync_logs] : []
 }
 
 # AppSync Data Source (None/Local)
