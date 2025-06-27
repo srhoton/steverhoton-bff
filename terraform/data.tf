@@ -11,8 +11,7 @@ data "aws_region" "current" {}
 
 # Get specific Cognito User Pool details
 data "aws_cognito_user_pool" "auth" {
-  user_pool_id = var.cognito_user_pool_id != "" ? var.cognito_user_pool_id : null
-  name         = var.cognito_user_pool_id == "" ? var.cognito_user_pool_name : null
+  user_pool_id = var.cognito_user_pool_id
 }
 
 # Get availability zones for the current region

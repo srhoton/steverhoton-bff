@@ -1,0 +1,156 @@
+# Unit type definition
+type Unit {
+  id: ID!
+  accountId: String!
+  suggestedVin: String!
+  errorCode: String
+  possibleValues: String
+  errorText: String
+  vehicleDescriptor: String
+  make: String!
+  manufacturerName: String!
+  model: String!
+  modelYear: String!
+  series: String!
+  vehicleType: String!
+  bodyClass: String
+  doors: String
+  grossVehicleWeightRatingFrom: String
+  grossVehicleWeightRatingTo: String
+  wheelBaseInchesFrom: String
+  bedType: String
+  cabType: String
+  trailerTypeConnection: String
+  trailerBodyType: String
+  customMotorcycleType: String
+  motorcycleSuspensionType: String
+  motorcycleChassisType: String
+  busFloorConfigurationType: String
+  busType: String
+  engineNumberOfCylinders: String
+  displacementCc: String
+  displacementCi: String
+  displacementL: String
+  engineBrakeHpFrom: String
+  fuelTypePrimary: String
+  seatBeltType: String
+  otherRestraintSystemInfo: String
+  frontAirBagLocations: String
+  createdAt: AWSTimestamp!
+  updatedAt: AWSTimestamp!
+  deletedAt: AWSTimestamp
+}
+
+# Input types
+input CreateUnitInput {
+  accountId: String!
+  suggestedVin: String!
+  make: String!
+  manufacturerName: String!
+  model: String!
+  modelYear: String!
+  series: String!
+  vehicleType: String!
+  errorCode: String
+  possibleValues: String
+  errorText: String
+  vehicleDescriptor: String
+  bodyClass: String
+  doors: String
+  grossVehicleWeightRatingFrom: String
+  grossVehicleWeightRatingTo: String
+  wheelBaseInchesFrom: String
+  bedType: String
+  cabType: String
+  trailerTypeConnection: String
+  trailerBodyType: String
+  customMotorcycleType: String
+  motorcycleSuspensionType: String
+  motorcycleChassisType: String
+  busFloorConfigurationType: String
+  busType: String
+  engineNumberOfCylinders: String
+  displacementCc: String
+  displacementCi: String
+  displacementL: String
+  engineBrakeHpFrom: String
+  fuelTypePrimary: String
+  seatBeltType: String
+  otherRestraintSystemInfo: String
+  frontAirBagLocations: String
+}
+
+input UpdateUnitInput {
+  id: ID!
+  accountId: String!
+  suggestedVin: String
+  make: String
+  manufacturerName: String
+  model: String
+  modelYear: String
+  series: String
+  vehicleType: String
+  errorCode: String
+  possibleValues: String
+  errorText: String
+  vehicleDescriptor: String
+  bodyClass: String
+  doors: String
+  grossVehicleWeightRatingFrom: String
+  grossVehicleWeightRatingTo: String
+  wheelBaseInchesFrom: String
+  bedType: String
+  cabType: String
+  trailerTypeConnection: String
+  trailerBodyType: String
+  customMotorcycleType: String
+  motorcycleSuspensionType: String
+  motorcycleChassisType: String
+  busFloorConfigurationType: String
+  busType: String
+  engineNumberOfCylinders: String
+  displacementCc: String
+  displacementCi: String
+  displacementL: String
+  engineBrakeHpFrom: String
+  fuelTypePrimary: String
+  seatBeltType: String
+  otherRestraintSystemInfo: String
+  frontAirBagLocations: String
+}
+
+input ListUnitsInput {
+  accountId: String!
+  limit: Int
+  nextToken: String
+}
+
+type ListUnitsResponse {
+  items: [Unit!]!
+  count: Int!
+  nextToken: String
+}
+
+# Existing AuthenticatedResponse type
+type AuthenticatedResponse {
+  message: String!
+  timestamp: String!
+  user: String
+  success: Boolean!
+}
+
+# Query and Mutation definitions
+type Query {
+  # Existing query
+  validateAuthn: AuthenticatedResponse
+  
+  # Unit queries
+  getUnit(id: ID!, accountId: String!): Unit
+  listUnits(input: ListUnitsInput!): ListUnitsResponse!
+}
+
+type Mutation {
+  createUnit(input: CreateUnitInput!): Unit!
+  updateUnit(input: UpdateUnitInput!): Unit!
+  deleteUnit(id: ID!, accountId: String!): Boolean!
+}

@@ -9,18 +9,7 @@ locals {
     Owner       = "steverhoton"
   })
 
-  graphql_schema = <<EOF
-type Query {
-  ${var.graphql_query_name}: AuthenticatedResponse
-}
-
-type AuthenticatedResponse {
-  message: String!
-  timestamp: String!
-  user: String
-  success: Boolean!
-}
-EOF
+  graphql_schema = file("${path.module}/schema.graphql")
 
   request_template = <<EOF
 {
@@ -168,7 +157,7 @@ resource "aws_appsync_graphql_api" "bff_api" {
     Name = "${var.project}-bff-api"
   })
 
-  depends_on = var.enable_logging ? [aws_iam_role_policy.appsync_logs] : []
+  depends_on = [aws_iam_role_policy.appsync_logs]
 }
 
 # AppSync Data Source (None/Local)
@@ -176,6 +165,61 @@ resource "aws_appsync_datasource" "none" {
   api_id = aws_appsync_graphql_api.bff_api.id
   name   = "none"
   type   = "NONE"
+}
+
+# IAM role for AppSync to invoke Lambda
+resource "aws_iam_role" "appsync_lambda" {
+  name = "${var.project}-appsync-lambda-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Principal = {
+          Service = "appsync.amazonaws.com"
+        }
+      }
+    ]
+  })
+
+  tags = local.common_tags
+}
+
+# IAM policy for AppSync to invoke Lambda
+resource "aws_iam_role_policy" "appsync_lambda" {
+  name = "${var.project}-appsync-lambda-policy"
+  role = aws_iam_role.appsync_lambda.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "lambda:InvokeFunction"
+        ]
+        Resource = [
+          "arn:aws:lambda:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:function:${var.unt_units_lambda_function_name}"
+        ]
+      }
+    ]
+  })
+}
+
+# AppSync Lambda Data Source
+resource "aws_appsync_datasource" "unt_units_lambda" {
+  api_id           = aws_appsync_graphql_api.bff_api.id
+  name             = "UntUnitsLambdaDataSource"
+  type             = "AWS_LAMBDA"
+  service_role_arn = aws_iam_role.appsync_lambda.arn
+
+  lambda_config {
+    function_arn = "arn:aws:lambda:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:function:${var.unt_units_lambda_function_name}"
+  }
+
+  depends_on = [aws_iam_role_policy.appsync_lambda]
 }
 
 # AppSync Resolver for the authenticated query
