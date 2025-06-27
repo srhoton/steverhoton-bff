@@ -110,3 +110,14 @@ variable "log_retention_days" {
     error_message = "Log retention days must be a valid CloudWatch retention period."
   }
 }
+
+variable "unt_units_lambda_function_name" {
+  description = "Name of the UNT Units Service Lambda function"
+  type        = string
+  default     = "unt-units-svc-prod-lambda"
+
+  validation {
+    condition     = can(regex("^[a-zA-Z0-9_-]+$", var.unt_units_lambda_function_name))
+    error_message = "Lambda function name must contain only letters, numbers, underscores, and hyphens."
+  }
+}
