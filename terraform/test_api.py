@@ -47,7 +47,7 @@ def test_graphql_query(endpoint, token, query, variables=None):
 
 def main():
     # Load credentials
-    with open('user_creds.json', 'r') as f:
+    with open('/Users/steverhoton/git/tmp/pass.json', 'r') as f:
         creds = json.load(f)
     
     # Configuration (from terraform outputs)
