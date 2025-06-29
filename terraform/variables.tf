@@ -121,3 +121,14 @@ variable "unt_units_lambda_function_name" {
     error_message = "Lambda function name must contain only letters, numbers, underscores, and hyphens."
   }
 }
+
+variable "location_lambda_function_name" {
+  description = "Name of the Location Service Lambda function"
+  type        = string
+  default     = "location-prod-location-handler"
+
+  validation {
+    condition     = can(regex("^[a-zA-Z0-9_-]+$", var.location_lambda_function_name))
+    error_message = "Lambda function name must contain only letters, numbers, underscores, and hyphens."
+  }
+}

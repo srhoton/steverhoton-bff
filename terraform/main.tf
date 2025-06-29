@@ -201,14 +201,15 @@ resource "aws_iam_role_policy" "appsync_lambda" {
           "lambda:InvokeFunction"
         ]
         Resource = [
-          "arn:aws:lambda:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:function:${var.unt_units_lambda_function_name}"
+          "arn:aws:lambda:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:function:${var.unt_units_lambda_function_name}",
+          "arn:aws:lambda:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:function:${var.location_lambda_function_name}"
         ]
       }
     ]
   })
 }
 
-# AppSync Lambda Data Source
+# AppSync Lambda Data Source for UNT Units
 resource "aws_appsync_datasource" "unt_units_lambda" {
   api_id           = aws_appsync_graphql_api.bff_api.id
   name             = "UntUnitsLambdaDataSource"
@@ -217,6 +218,20 @@ resource "aws_appsync_datasource" "unt_units_lambda" {
 
   lambda_config {
     function_arn = "arn:aws:lambda:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:function:${var.unt_units_lambda_function_name}"
+  }
+
+  depends_on = [aws_iam_role_policy.appsync_lambda]
+}
+
+# AppSync Lambda Data Source for Location Service
+resource "aws_appsync_datasource" "location_lambda" {
+  api_id           = aws_appsync_graphql_api.bff_api.id
+  name             = "LocationLambdaDataSource"
+  type             = "AWS_LAMBDA"
+  service_role_arn = aws_iam_role.appsync_lambda.arn
+
+  lambda_config {
+    function_arn = "arn:aws:lambda:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:function:${var.location_lambda_function_name}"
   }
 
   depends_on = [aws_iam_role_policy.appsync_lambda]
