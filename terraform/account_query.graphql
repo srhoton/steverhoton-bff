@@ -1,0 +1,66 @@
+# Account type definition
+type Account {
+  id: String!
+  name: String!
+  status: String!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  billingContactId: String
+  billingLocationId: String
+  extendedAttributes: [ExtendedAttribute]
+}
+
+# Extended attribute type for additional account properties
+type ExtendedAttribute {
+  name: String!
+  value: String!
+}
+
+# List output type for paginated account results
+type ListAccountsResponse {
+  items: [Account!]!
+  nextToken: String
+}
+
+# Delete response type for delete operations
+type DeleteAccountResponse {
+  success: Boolean!
+  id: String!
+}
+
+# Input types for account operations
+input CreateAccountInput {
+  id: String!
+  name: String!
+  status: String!
+  billingContactId: String
+  billingLocationId: String
+  extendedAttributes: [ExtendedAttributeInput]
+}
+
+input UpdateAccountInput {
+  id: String!
+  name: String!
+  status: String!
+  billingContactId: String
+  billingLocationId: String
+  extendedAttributes: [ExtendedAttributeInput]
+}
+
+input ExtendedAttributeInput {
+  name: String!
+  value: String!
+}
+
+input GetAccountInput {
+  id: String!
+}
+
+input DeleteAccountInput {
+  id: String!
+}
+
+input ListAccountsInput {
+  limit: Int
+  nextToken: String
+}

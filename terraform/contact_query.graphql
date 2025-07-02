@@ -1,0 +1,85 @@
+# Contact type definition
+type Contact {
+  accountId: String!
+  contactId: String!
+  email: String!
+  firstName: String
+  lastName: String
+  phone: String
+  status: String
+  locationIds: [String]
+  config: AWSJSON
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+# List output type for paginated results
+type ContactListOutput {
+  items: [Contact!]!
+  nextToken: String
+}
+
+# Input types for mutations and queries
+input CreateContactInput {
+  accountId: String!
+  email: String!
+  firstName: String
+  lastName: String
+  phone: String
+  status: String
+  locationIds: [String]
+  config: AWSJSON
+}
+
+input UpdateContactInput {
+  accountId: String!
+  email: String!
+  firstName: String
+  lastName: String
+  phone: String
+  status: String
+  locationIds: [String]
+  config: AWSJSON
+}
+
+input GetContactInput {
+  accountId: String!
+  email: String!
+}
+
+input DeleteContactInput {
+  accountId: String!
+  email: String!
+}
+
+input ListContactsInput {
+  accountId: String!
+  limit: Int
+  nextToken: String
+  startDate: AWSDateTime
+  endDate: AWSDateTime
+}
+
+input GetContactByContactIdInput {
+  contactId: String!
+}
+
+# Define Mutation type for contact, location, account, and units operations
+type Mutation {
+  createContact(input: CreateContactInput!): Boolean
+  updateContact(input: UpdateContactInput!): Contact
+  deleteContact(input: DeleteContactInput!): Boolean
+  createLocation(input: CreateLocationInput!): String
+  createAddressLocation(input: CreateAddressLocationInput!): String
+  createCoordinatesLocation(input: CreateCoordinatesLocationInput!): String
+  updateLocation(locationId: String!, input: UpdateLocationInput!): Boolean
+  updateAddressLocation(locationId: String!, input: UpdateAddressLocationInput!): Boolean
+  updateCoordinatesLocation(locationId: String!, input: UpdateCoordinatesLocationInput!): Boolean
+  deleteLocation(input: DeleteLocationInput!): Boolean
+  createAccount(input: CreateAccountInput!): Account
+  updateAccount(input: UpdateAccountInput!): Account
+  deleteAccount(input: DeleteAccountInput!): DeleteAccountResponse
+  createUnit(input: CreateUnitInput!): UnitResponse
+  updateUnit(input: UpdateUnitInput!): UnitResponse
+  deleteUnit(input: DeleteUnitInput!): DeleteUnitResponse
+}

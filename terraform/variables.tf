@@ -48,23 +48,6 @@ variable "bff_subdomain" {
   }
 }
 
-variable "auth_subdomain" {
-  description = "Subdomain for the existing Cognito auth infrastructure"
-  type        = string
-  default     = "auth"
-
-  validation {
-    condition     = can(regex("^[a-z0-9-]+$", var.auth_subdomain))
-    error_message = "Subdomain must contain only lowercase letters, numbers, and hyphens."
-  }
-}
-
-variable "cognito_user_pool_name" {
-  description = "Name of the existing Cognito User Pool"
-  type        = string
-  default     = "steverhoton-auth-prod-main-user-pool"
-}
-
 variable "cognito_user_pool_id" {
   description = "ID of the existing Cognito User Pool (if known, takes precedence over name)"
   type        = string
@@ -108,27 +91,5 @@ variable "log_retention_days" {
   validation {
     condition     = contains([1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, 3653], var.log_retention_days)
     error_message = "Log retention days must be a valid CloudWatch retention period."
-  }
-}
-
-variable "unt_units_lambda_function_name" {
-  description = "Name of the UNT Units Service Lambda function"
-  type        = string
-  default     = "unt-units-svc-prod-lambda"
-
-  validation {
-    condition     = can(regex("^[a-zA-Z0-9_-]+$", var.unt_units_lambda_function_name))
-    error_message = "Lambda function name must contain only letters, numbers, underscores, and hyphens."
-  }
-}
-
-variable "location_lambda_function_name" {
-  description = "Name of the Location Service Lambda function"
-  type        = string
-  default     = "location-prod-location-handler"
-
-  validation {
-    condition     = can(regex("^[a-zA-Z0-9_-]+$", var.location_lambda_function_name))
-    error_message = "Lambda function name must contain only letters, numbers, underscores, and hyphens."
   }
 }
