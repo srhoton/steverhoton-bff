@@ -1,0 +1,79 @@
+# Units service response wrapper
+type UnitResponse {
+  success: Boolean!
+  data: AWSJSON
+  message: String
+  error: UnitError
+}
+
+# Error type for unit operations
+type UnitError {
+  code: String!
+  message: String!
+  details: String
+}
+
+# Unit list response
+type ListUnitsResponse {
+  success: Boolean!
+  data: UnitListData
+  message: String
+  error: UnitError
+}
+
+# Unit list data structure
+type UnitListData {
+  items: [AWSJSON!]!
+  nextToken: String
+  count: Int!
+}
+
+# Unit delete response
+type DeleteUnitResponse {
+  success: Boolean!
+  data: DeletedUnit
+  message: String
+  error: UnitError
+}
+
+# Deleted unit data
+type DeletedUnit {
+  id: String!
+  accountId: String!
+  unitType: String!
+  deleted: Boolean!
+}
+
+# Input types for unit operations
+input CreateUnitInput {
+  accountId: String!
+  unitType: String!
+  data: AWSJSON!
+}
+
+input GetUnitInput {
+  id: String!
+  accountId: String!
+  unitType: String!
+}
+
+input UpdateUnitInput {
+  id: String!
+  accountId: String!
+  unitType: String!
+  data: AWSJSON!
+}
+
+input DeleteUnitInput {
+  id: String!
+  accountId: String!
+  unitType: String!
+}
+
+input ListUnitsInput {
+  accountId: String!
+  unitType: String
+  limit: Int
+  nextToken: String
+  filter: String
+}

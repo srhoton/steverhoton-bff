@@ -64,9 +64,22 @@ input GetContactByContactIdInput {
   contactId: String!
 }
 
-# Define Mutation type for contact operations
+# Define Mutation type for contact, location, account, and units operations
 type Mutation {
   createContact(input: CreateContactInput!): Boolean
   updateContact(input: UpdateContactInput!): Contact
   deleteContact(input: DeleteContactInput!): Boolean
+  createLocation(input: CreateLocationInput!): String
+  createAddressLocation(input: CreateAddressLocationInput!): String
+  createCoordinatesLocation(input: CreateCoordinatesLocationInput!): String
+  updateLocation(locationId: String!, input: UpdateLocationInput!): Boolean
+  updateAddressLocation(locationId: String!, input: UpdateAddressLocationInput!): Boolean
+  updateCoordinatesLocation(locationId: String!, input: UpdateCoordinatesLocationInput!): Boolean
+  deleteLocation(input: DeleteLocationInput!): Boolean
+  createAccount(input: CreateAccountInput!): Account
+  updateAccount(input: UpdateAccountInput!): Account
+  deleteAccount(input: DeleteAccountInput!): DeleteAccountResponse
+  createUnit(input: CreateUnitInput!): UnitResponse
+  updateUnit(input: UpdateUnitInput!): UnitResponse
+  deleteUnit(input: DeleteUnitInput!): DeleteUnitResponse
 }

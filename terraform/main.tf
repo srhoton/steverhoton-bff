@@ -11,7 +11,10 @@ locals {
 
   graphql_schema = join("\n\n", [
     file("${path.module}/authenticated_query.graphql"),
-    file("${path.module}/contact_query.graphql")
+    file("${path.module}/contact_query.graphql"),
+    file("${path.module}/location_query.graphql"),
+    file("${path.module}/account_query.graphql"),
+    file("${path.module}/units_query.graphql")
   ])
 }
 

@@ -12,4 +12,10 @@ type Query {
   getContact(input: GetContactInput!): Contact
   listContacts(input: ListContactsInput!): ContactListOutput
   getContactByContactId(input: GetContactByContactIdInput!): Contact
+  getLocation(input: GetLocationInput!): Location
+  listLocations(input: ListLocationsInput!): LocationListOutput
+  getAccount(input: GetAccountInput!): Account
+  listAccounts(input: ListAccountsInput!): ListAccountsResponse
+  getUnit(input: GetUnitInput!): UnitResponse
+  listUnits(input: ListUnitsInput!): ListUnitsResponse
 }
