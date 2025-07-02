@@ -4,17 +4,10 @@ data "aws_route53_zone" "main" {
   private_zone = false
 }
 
-# Get current AWS account and region information
-data "aws_caller_identity" "current" {}
-
+# Get current AWS region information
 data "aws_region" "current" {}
 
 # Get specific Cognito User Pool details
 data "aws_cognito_user_pool" "auth" {
   user_pool_id = var.cognito_user_pool_id
-}
-
-# Get availability zones for the current region
-data "aws_availability_zones" "available" {
-  state = "available"
 }

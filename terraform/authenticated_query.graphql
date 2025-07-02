@@ -1,0 +1,15 @@
+# Authenticated Response type
+type AuthenticatedResponse {
+  message: String!
+  timestamp: String!
+  user: String
+  success: Boolean!
+}
+
+# Query definitions
+type Query {
+  validateAuthn: AuthenticatedResponse
+  getContact(input: GetContactInput!): Contact
+  listContacts(input: ListContactsInput!): ContactListOutput
+  getContactByContactId(input: GetContactByContactIdInput!): Contact
+}
