@@ -1,0 +1,8 @@
+{
+  "query": "query GetContact($input: GetContactInput!) { getContact(input: $input) { contactId accountId email firstName lastName } }",
+  "variables": {
+    "input": {
+      "email": "authorized@example.com"
+    }
+  }
+}
