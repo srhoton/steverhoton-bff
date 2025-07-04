@@ -1,0 +1,18 @@
+AI Prompts Used for this Commit:
+
+1. Initial Request:
+"We need to update the contacts resolver in the appsync implementation in the terraform directory. The getContact functionality now makes accountId optional. You can verify this by looking in either the ../steverhoton-contact/lambda directory (that's the source code), or use the AWS cli. Make sure to follow all terraform rules in your memory, and make sure any changes fmt, lint, and validate. Ultrathink, and let me know if you have any questions."
+
+2. Follow-up Request:
+"if you haven't already, please plan and apply the terraform."
+
+3. Testing Request:
+"Ok. Please test the changes directly on bff.steverhoton.com now, verifying the functionality. You can use temporary credentials in ~/git/tmp/pass.json to get the needed JWT to authenticate the request."
+
+4. Final Request:
+"Great, please commit your changes."
+
+5. Git Notes Request:
+"OK. please add the prompts used in this section to the commit via the 'git notes' functionality."
+
+Context: This commit was generated through an AI-assisted development process where the AI agent examined the Lambda source code, updated the GraphQL schema, deployed via Terraform, tested the live API, and committed the changes.
