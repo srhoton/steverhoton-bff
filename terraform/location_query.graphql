@@ -3,7 +3,7 @@ union Location = AddressLocation | CoordinatesLocation
 
 # Address location type definition
 type AddressLocation {
-  locationId: String!
+  locationId: String
   accountId: String!
   locationType: String!
   extendedAttributes: AWSJSON
@@ -12,7 +12,7 @@ type AddressLocation {
 
 # Coordinates location type definition  
 type CoordinatesLocation {
-  locationId: String!
+  locationId: String
   accountId: String!
   locationType: String!
   extendedAttributes: AWSJSON
