@@ -1,0 +1,28 @@
+PROMPTS USED IN THIS SESSION:
+
+1. Initial Request:
+"An upstream team using the bff defined in the terraform directory found the following issue with the implement, and has a proposed fix below. Can you implement it?   ⚠️ Important Location ID Issue
+
+I discovered and documented a significant issue with the current GraphQL schema:
+
+Problem: The current GraphQL schema for AddressLocation and CoordinatesLocation types does not include a locationId field, even though the backend DynamoDB location service stores locations with proper UUID locationIds as the Primary Key.
+
+Current Workaround: Implemented a content-based hash system that generates stable identifiers from location content (address details or coordinates). This allows the dropdown to function with current schema limitations.
+
+Proper Solution Needed:
+1. Update GraphQL schema to include locationId: String\! in both location types
+2. Update listLocations query to return actual database locationIds
+3. Remove temporary hash-based ID system once schema is updated"
+
+2. Follow-up Request:
+"can you plan and apply those changes is you didn't already?"
+
+3. Final Request:
+"OK. please add the prompts used in this section to the commit via the 'git notes' functionality."
+
+IMPLEMENTATION SUMMARY:
+- Added locationId: String\! field to both AddressLocation and CoordinatesLocation GraphQL types
+- Updated test payloads for get_location.json and list_locations.json to include locationId field
+- Verified existing AppSync resolvers were properly configured
+- Created comprehensive todo list and tracked progress through completion
+- All changes ready for backend to populate actual database UUIDs instead of content hashes
