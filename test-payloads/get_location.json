@@ -1,0 +1,9 @@
+{
+  "query": "query GetLocation($input: GetLocationInput!) { getLocation(input: $input) { ... on AddressLocation { locationId accountId locationType extendedAttributes address { streetAddress city stateProvince postalCode country } } ... on CoordinatesLocation { locationId accountId locationType extendedAttributes coordinates { latitude longitude altitude accuracy } } } }",
+  "variables": {
+    "input": {
+      "accountId": "e4c8f468-e0b1-7049-6f0f-48b0b4f27aa5",
+      "locationId": "82212e91-674f-4078-800e-1609314e4bf0"
+    }
+  }
+}
