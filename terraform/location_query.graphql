@@ -1,0 +1,137 @@
+# Location union type for polymorphic location handling
+union Location = AddressLocation | CoordinatesLocation
+
+# Address location type definition
+type AddressLocation {
+  locationId: String!
+  accountId: String!
+  locationType: String!
+  extendedAttributes: AWSJSON
+  address: Address!
+}
+
+# Coordinates location type definition  
+type CoordinatesLocation {
+  locationId: String!
+  accountId: String!
+  locationType: String!
+  extendedAttributes: AWSJSON
+  coordinates: Coordinates!
+}
+
+# Address type definition
+type Address {
+  streetAddress: String!
+  streetAddress2: String
+  city: String!
+  stateProvince: String
+  postalCode: String!
+  country: String!
+}
+
+# Coordinates type definition
+type Coordinates {
+  latitude: Float!
+  longitude: Float!
+  altitude: Float
+  accuracy: Float
+}
+
+# List output type for paginated location results
+type LocationListOutput {
+  locations: [Location!]!
+  nextCursor: String
+}
+
+# Input types for location operations
+input CreateLocationInput {
+  accountId: String!
+  locationType: String!
+  extendedAttributes: AWSJSON
+  address: AddressInput
+  coordinates: CoordinatesInput
+}
+
+input CreateAddressLocationInput {
+  accountId: String!
+  locationType: String!
+  extendedAttributes: AWSJSON
+  address: AddressInput!
+}
+
+input CreateCoordinatesLocationInput {
+  accountId: String!
+  locationType: String!
+  extendedAttributes: AWSJSON
+  coordinates: CoordinatesInput!
+}
+
+input UpdateLocationInput {
+  accountId: String!
+  locationType: String!
+  extendedAttributes: AWSJSON
+  address: AddressInput
+  coordinates: CoordinatesInput
+}
+
+input UpdateAddressLocationInput {
+  accountId: String!
+  locationType: String!
+  extendedAttributes: AWSJSON
+  address: AddressInput!
+}
+
+input UpdateCoordinatesLocationInput {
+  accountId: String!
+  locationType: String!
+  extendedAttributes: AWSJSON
+  coordinates: CoordinatesInput!
+}
+
+input AddressInput {
+  streetAddress: String!
+  streetAddress2: String
+  city: String!
+  stateProvince: String
+  postalCode: String!
+  country: String!
+}
+
+input CoordinatesInput {
+  latitude: Float!
+  longitude: Float!
+  altitude: Float
+  accuracy: Float
+}
+
+input GetLocationInput {
+  accountId: String!
+  locationId: String!
+}
+
+input DeleteLocationInput {
+  accountId: String!
+  locationId: String!
+}
+
+input ListLocationsInput {
+  accountId: String!
+  limit: Int
+  cursor: String
+}
+
+input UpdateLocationByIdInput {
+  locationId: String!
+  input: UpdateLocationInput!
+}
+
+input UpdateAddressLocationByIdInput {
+  locationId: String!
+  input: UpdateAddressLocationInput!
+}
+
+input UpdateCoordinatesLocationByIdInput {
+  locationId: String!
+  input: UpdateCoordinatesLocationInput!
+}
+
