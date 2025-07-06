@@ -1,0 +1,17 @@
+Session Prompts:
+1. Initial Problem Report: "Users calling the list locations endpoint in the appsync implementation in the terraform directory for account acc-e4c8f468-e0b1-7049-6f0f-48b0b4f27aa5 report seeing the error: Error: failed to list locations: failed to list locations: operation error DynamoDB: Query, https response error StatusCode: 400, RequestID: 9RGS7D93A5HQ2ST24ETAT553H3VV4KQNSO5AEMVJF66Q9ASUAAJG, api error ValidationException: One or more parameter values are not valid. A value specified for a secondary index key is not supported. The AttributeValue for a key attribute cannot contain an empty string value. IndexName: AccountIndex, IndexKey: accountId. However testing the resolver lambda directly for this accountId works fine. Can you troubleshoot the issue? Ultrathink this."
+
+2. Follow-up Request: "Go ahead and plan and apply this fix"
+
+Analysis Process:
+- Examined terraform directory structure and configuration files
+- Identified discrepancy in AppSync resolver request templates between account and location services
+- Found that location resolvers were passing $context.arguments instead of $context.arguments.input
+- Determined this was causing accountId to be undefined in Lambda, leading to empty string in DynamoDB query
+- Applied fix by updating location_request_template to use $context.arguments.input
+- Successfully planned and applied terraform changes
+- Updated 9 location resolvers (get, list, create, update, delete operations)
+
+Root Cause: AppSync VTL template was not unwrapping the input object, causing the Lambda to receive the wrapped arguments structure instead of the direct input values.
+
+Solution: Changed "arguments": $util.toJson($context.arguments) to "arguments": $util.toJson($context.arguments.input) in terraform/location_query.tf
