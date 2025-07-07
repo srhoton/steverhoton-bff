@@ -1,0 +1,7 @@
+{
+  "query": "mutation DeleteLocation($accountId: String!, $locationId: String!) { deleteLocation(accountId: $accountId, locationId: $locationId) }",
+  "variables": {
+    "accountId": "e4c8f468-e0b1-7049-6f0f-48b0b4f27aa5",
+    "locationId": "82212e91-674f-4078-800e-1609314e4bf0"
+  }
+}

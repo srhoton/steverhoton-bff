@@ -69,13 +69,11 @@ type Mutation {
   createContact(input: CreateContactInput!): Boolean
   updateContact(input: UpdateContactInput!): Contact
   deleteContact(input: DeleteContactInput!): Boolean
-  createLocation(input: CreateLocationInput!): String
   createAddressLocation(input: CreateAddressLocationInput!): String
   createCoordinatesLocation(input: CreateCoordinatesLocationInput!): String
-  updateLocation(locationId: String!, input: UpdateLocationInput!): Boolean
   updateAddressLocation(locationId: String!, input: UpdateAddressLocationInput!): Boolean
   updateCoordinatesLocation(locationId: String!, input: UpdateCoordinatesLocationInput!): Boolean
-  deleteLocation(input: DeleteLocationInput!): Boolean
+  deleteLocation(accountId: String!, locationId: String!): Boolean
   createAccount(input: CreateAccountInput!): Account
   updateAccount(input: UpdateAccountInput!): Account
   deleteAccount(input: DeleteAccountInput!): DeleteAccountResponse

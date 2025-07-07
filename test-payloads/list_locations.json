@@ -1,8 +1,8 @@
 {
-  "query": "query ListLocations($input: ListLocationsInput!) { listLocations(input: $input) { locations { ... on AddressLocation { locationId accountId locationType extendedAttributes address { streetAddress city stateProvince postalCode country } } ... on CoordinatesLocation { locationId accountId locationType extendedAttributes coordinates { latitude longitude altitude accuracy } } } nextCursor } }",
+  "query": "query ListLocations($accountId: String!, $options: ListLocationsOptions) { listLocations(accountId: $accountId, options: $options) { locations { ... on AddressLocation { locationId accountId locationType extendedAttributes address { streetAddress city stateProvince postalCode country } } ... on CoordinatesLocation { locationId accountId locationType extendedAttributes coordinates { latitude longitude altitude accuracy } } } nextCursor } }",
   "variables": {
-    "input": {
-      "accountId": "e4c8f468-e0b1-7049-6f0f-48b0b4f27aa5",
+    "accountId": "e4c8f468-e0b1-7049-6f0f-48b0b4f27aa5",
+    "options": {
       "limit": 10
     }
   }

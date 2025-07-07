@@ -44,48 +44,30 @@ type LocationListOutput {
 }
 
 # Input types for location operations
-input CreateLocationInput {
-  accountId: String!
-  locationType: String!
-  extendedAttributes: AWSJSON
-  address: AddressInput
-  coordinates: CoordinatesInput
-}
 
 input CreateAddressLocationInput {
   accountId: String!
-  locationType: String!
-  extendedAttributes: AWSJSON
   address: AddressInput!
+  extendedAttributes: AWSJSON
 }
 
 input CreateCoordinatesLocationInput {
   accountId: String!
-  locationType: String!
-  extendedAttributes: AWSJSON
   coordinates: CoordinatesInput!
+  extendedAttributes: AWSJSON
 }
 
-input UpdateLocationInput {
-  accountId: String!
-  locationType: String!
-  extendedAttributes: AWSJSON
-  address: AddressInput
-  coordinates: CoordinatesInput
-}
 
 input UpdateAddressLocationInput {
   accountId: String!
-  locationType: String!
-  extendedAttributes: AWSJSON
   address: AddressInput!
+  extendedAttributes: AWSJSON
 }
 
 input UpdateCoordinatesLocationInput {
   accountId: String!
-  locationType: String!
-  extendedAttributes: AWSJSON
   coordinates: CoordinatesInput!
+  extendedAttributes: AWSJSON
 }
 
 input AddressInput {
@@ -104,34 +86,12 @@ input CoordinatesInput {
   accuracy: Float
 }
 
-input GetLocationInput {
-  accountId: String!
-  locationId: String!
-}
+# Removed GetLocationInput - now uses direct arguments
 
-input DeleteLocationInput {
-  accountId: String!
-  locationId: String!
-}
 
-input ListLocationsInput {
-  accountId: String!
+input ListLocationsOptions {
   limit: Int
   cursor: String
 }
 
-input UpdateLocationByIdInput {
-  locationId: String!
-  input: UpdateLocationInput!
-}
-
-input UpdateAddressLocationByIdInput {
-  locationId: String!
-  input: UpdateAddressLocationInput!
-}
-
-input UpdateCoordinatesLocationByIdInput {
-  locationId: String!
-  input: UpdateCoordinatesLocationInput!
-}
 
