@@ -12,8 +12,8 @@ type Query {
   getContact(input: GetContactInput!): Contact
   listContacts(input: ListContactsInput!): ContactListOutput
   getContactByContactId(input: GetContactByContactIdInput!): Contact
-  getLocation(input: GetLocationInput!): Location
-  listLocations(input: ListLocationsInput!): LocationListOutput
+  getLocation(accountId: String!, locationId: String!): Location
+  listLocations(accountId: String!, options: ListLocationsOptions): LocationListOutput
   getAccount(input: GetAccountInput!): Account
   listAccounts(input: ListAccountsInput!): ListAccountsResponse
   getUnit(input: GetUnitInput!): UnitResponse

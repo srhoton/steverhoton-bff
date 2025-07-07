@@ -3,14 +3,119 @@ locals {
   # Lambda function name for location resolver
   location_lambda_function_name = "location-prod-location-handler"
 
-  # Request template for location resolver (passes through AppSync event structure)
-  location_request_template = <<EOF
+  # Request template for queries (direct arguments)
+  location_query_request_template = <<EOF
 {
   "version": "2017-02-28",
   "operation": "Invoke",
   "payload": {
     "field": $util.toJson($context.info.fieldName),
-    "arguments": $util.toJson($context.arguments.input),
+    "arguments": $util.toJson($context.arguments),
+    "identity": $util.toJson($context.identity),
+    "request": $util.toJson($context.request),
+    "source": $util.toJson($context.source)
+  }
+}
+EOF
+
+  # Request template for create address location mutation
+  location_create_address_request_template = <<EOF
+{
+  "version": "2017-02-28",
+  "operation": "Invoke",
+  "payload": {
+    "field": $util.toJson($context.info.fieldName),
+    "arguments": {
+      "input": {
+        "accountId": $util.toJson($context.arguments.input.accountId),
+        "locationType": "address",
+        "address": $util.toJson($context.arguments.input.address),
+        "extendedAttributes": $util.toJson($context.arguments.input.extendedAttributes)
+      }
+    },
+    "identity": $util.toJson($context.identity),
+    "request": $util.toJson($context.request),
+    "source": $util.toJson($context.source)
+  }
+}
+EOF
+
+  # Request template for create coordinates location mutation
+  location_create_coordinates_request_template = <<EOF
+{
+  "version": "2017-02-28",
+  "operation": "Invoke",
+  "payload": {
+    "field": $util.toJson($context.info.fieldName),
+    "arguments": {
+      "input": {
+        "accountId": $util.toJson($context.arguments.input.accountId),
+        "locationType": "coordinates",
+        "coordinates": $util.toJson($context.arguments.input.coordinates),
+        "extendedAttributes": $util.toJson($context.arguments.input.extendedAttributes)
+      }
+    },
+    "identity": $util.toJson($context.identity),
+    "request": $util.toJson($context.request),
+    "source": $util.toJson($context.source)
+  }
+}
+EOF
+
+  # Request template for update address location mutation
+  location_update_address_request_template = <<EOF
+{
+  "version": "2017-02-28",
+  "operation": "Invoke",
+  "payload": {
+    "field": $util.toJson($context.info.fieldName),
+    "arguments": {
+      "locationId": $util.toJson($context.arguments.locationId),
+      "input": {
+        "accountId": $util.toJson($context.arguments.input.accountId),
+        "locationType": "address",
+        "address": $util.toJson($context.arguments.input.address),
+        "extendedAttributes": $util.toJson($context.arguments.input.extendedAttributes)
+      }
+    },
+    "identity": $util.toJson($context.identity),
+    "request": $util.toJson($context.request),
+    "source": $util.toJson($context.source)
+  }
+}
+EOF
+
+  # Request template for update coordinates location mutation
+  location_update_coordinates_request_template = <<EOF
+{
+  "version": "2017-02-28",
+  "operation": "Invoke",
+  "payload": {
+    "field": $util.toJson($context.info.fieldName),
+    "arguments": {
+      "locationId": $util.toJson($context.arguments.locationId),
+      "input": {
+        "accountId": $util.toJson($context.arguments.input.accountId),
+        "locationType": "coordinates",
+        "coordinates": $util.toJson($context.arguments.input.coordinates),
+        "extendedAttributes": $util.toJson($context.arguments.input.extendedAttributes)
+      }
+    },
+    "identity": $util.toJson($context.identity),
+    "request": $util.toJson($context.request),
+    "source": $util.toJson($context.source)
+  }
+}
+EOF
+
+  # Request template for delete mutations (direct arguments)
+  location_delete_request_template = <<EOF
+{
+  "version": "2017-02-28",
+  "operation": "Invoke",
+  "payload": {
+    "field": $util.toJson($context.info.fieldName),
+    "arguments": $util.toJson($context.arguments),
     "identity": $util.toJson($context.identity),
     "request": $util.toJson($context.request),
     "source": $util.toJson($context.source)
@@ -89,7 +194,7 @@ resource "aws_appsync_resolver" "get_location" {
   field       = "getLocation"
   type        = "Query"
 
-  request_template  = local.location_request_template
+  request_template  = local.location_query_request_template
   response_template = local.location_response_template
 
   depends_on = [aws_appsync_graphql_api.bff_api]
@@ -102,24 +207,12 @@ resource "aws_appsync_resolver" "list_locations" {
   field       = "listLocations"
   type        = "Query"
 
-  request_template  = local.location_request_template
+  request_template  = local.location_query_request_template
   response_template = local.location_response_template
 
   depends_on = [aws_appsync_graphql_api.bff_api]
 }
 
-# AppSync Resolver for createLocation mutation
-resource "aws_appsync_resolver" "create_location" {
-  api_id      = aws_appsync_graphql_api.bff_api.id
-  data_source = aws_appsync_datasource.location_lambda.name
-  field       = "createLocation"
-  type        = "Mutation"
-
-  request_template  = local.location_request_template
-  response_template = local.location_response_template
-
-  depends_on = [aws_appsync_graphql_api.bff_api]
-}
 
 # AppSync Resolver for createAddressLocation mutation
 resource "aws_appsync_resolver" "create_address_location" {
@@ -128,7 +221,7 @@ resource "aws_appsync_resolver" "create_address_location" {
   field       = "createAddressLocation"
   type        = "Mutation"
 
-  request_template  = local.location_request_template
+  request_template  = local.location_create_address_request_template
   response_template = local.location_response_template
 
   depends_on = [aws_appsync_graphql_api.bff_api]
@@ -141,24 +234,12 @@ resource "aws_appsync_resolver" "create_coordinates_location" {
   field       = "createCoordinatesLocation"
   type        = "Mutation"
 
-  request_template  = local.location_request_template
+  request_template  = local.location_create_coordinates_request_template
   response_template = local.location_response_template
 
   depends_on = [aws_appsync_graphql_api.bff_api]
 }
 
-# AppSync Resolver for updateLocation mutation
-resource "aws_appsync_resolver" "update_location" {
-  api_id      = aws_appsync_graphql_api.bff_api.id
-  data_source = aws_appsync_datasource.location_lambda.name
-  field       = "updateLocation"
-  type        = "Mutation"
-
-  request_template  = local.location_request_template
-  response_template = local.location_response_template
-
-  depends_on = [aws_appsync_graphql_api.bff_api]
-}
 
 # AppSync Resolver for updateAddressLocation mutation
 resource "aws_appsync_resolver" "update_address_location" {
@@ -167,7 +248,7 @@ resource "aws_appsync_resolver" "update_address_location" {
   field       = "updateAddressLocation"
   type        = "Mutation"
 
-  request_template  = local.location_request_template
+  request_template  = local.location_update_address_request_template
   response_template = local.location_response_template
 
   depends_on = [aws_appsync_graphql_api.bff_api]
@@ -180,7 +261,7 @@ resource "aws_appsync_resolver" "update_coordinates_location" {
   field       = "updateCoordinatesLocation"
   type        = "Mutation"
 
-  request_template  = local.location_request_template
+  request_template  = local.location_update_coordinates_request_template
   response_template = local.location_response_template
 
   depends_on = [aws_appsync_graphql_api.bff_api]
@@ -193,7 +274,7 @@ resource "aws_appsync_resolver" "delete_location" {
   field       = "deleteLocation"
   type        = "Mutation"
 
-  request_template  = local.location_request_template
+  request_template  = local.location_delete_request_template
   response_template = local.location_response_template
 
   depends_on = [aws_appsync_graphql_api.bff_api]
