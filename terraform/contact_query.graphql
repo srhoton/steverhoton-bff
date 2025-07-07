@@ -7,6 +7,7 @@ type Contact {
   lastName: String
   phone: String
   status: String
+  contactType: String!
   locationIds: [String]
   config: AWSJSON
   createdAt: AWSDateTime!
@@ -23,6 +24,7 @@ type ContactListOutput {
 input CreateContactInput {
   accountId: String!
   email: String!
+  contactType: String!
   firstName: String
   lastName: String
   phone: String
@@ -34,6 +36,7 @@ input CreateContactInput {
 input UpdateContactInput {
   accountId: String!
   email: String!
+  contactType: String
   firstName: String
   lastName: String
   phone: String
