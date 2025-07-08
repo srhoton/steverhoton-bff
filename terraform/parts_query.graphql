@@ -1,0 +1,127 @@
+# Part dimensions type
+type Dimensions {
+  length: Float
+  width: Float
+  height: Float
+}
+
+# Part type definition
+type Part {
+  accountId: String!
+  sortKey: String!
+  partNumber: String!
+  description: String!
+  manufacturer: String!
+  category: String!
+  subcategory: String
+  unitId: String
+  locationId: String
+  condition: String!
+  status: String!
+  quantity: Int!
+  serialNumber: String
+  batchNumber: String
+  installDate: AWSTimestamp
+  purchaseDate: AWSTimestamp
+  warrantyExpiration: AWSTimestamp
+  vendor: String
+  weight: Float
+  dimensions: Dimensions
+  specifications: AWSJSON
+  extendedAttributes: AWSJSON
+  tags: [String]
+  notes: String
+}
+
+# List output type for paginated results
+type PartListOutput {
+  parts: [Part!]!
+  nextToken: String
+}
+
+# Success response for delete operations
+type DeletePartResponse {
+  success: Boolean!
+  message: String!
+}
+
+# Input types for mutations and queries
+input DimensionsInput {
+  length: Float
+  width: Float
+  height: Float
+}
+
+input CreatePartInput {
+  accountId: String!
+  unitId: String
+  locationId: String
+  partNumber: String!
+  description: String!
+  manufacturer: String!
+  category: String!
+  subcategory: String
+  condition: String!
+  status: String!
+  quantity: Int!
+  serialNumber: String
+  batchNumber: String
+  installDate: AWSTimestamp
+  purchaseDate: AWSTimestamp
+  warrantyExpiration: AWSTimestamp
+  vendor: String
+  weight: Float
+  dimensions: DimensionsInput
+  specifications: AWSJSON
+  extendedAttributes: AWSJSON
+  tags: [String]
+  notes: String
+}
+
+input UpdatePartInput {
+  accountId: String!
+  sortKey: String!
+  partNumber: String
+  description: String
+  manufacturer: String
+  category: String
+  subcategory: String
+  unitId: String
+  locationId: String
+  condition: String
+  status: String
+  quantity: Int
+  serialNumber: String
+  batchNumber: String
+  installDate: AWSTimestamp
+  purchaseDate: AWSTimestamp
+  warrantyExpiration: AWSTimestamp
+  vendor: String
+  weight: Float
+  dimensions: DimensionsInput
+  specifications: AWSJSON
+  extendedAttributes: AWSJSON
+  tags: [String]
+  notes: String
+}
+
+input GetPartInput {
+  accountId: String!
+  sortKey: String!
+}
+
+input DeletePartInput {
+  accountId: String!
+  sortKey: String!
+}
+
+input ListPartsInput {
+  accountId: String!
+  limit: Int
+  nextToken: String
+  locationId: String
+  unitId: String
+}
+
+# Parts operations are defined in the main Query and Mutation types
+# in authenticated_query.graphql and contact_query.graphql respectively
