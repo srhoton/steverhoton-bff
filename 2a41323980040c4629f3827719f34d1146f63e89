@@ -1,0 +1,20 @@
+Session Prompts:
+
+1. User: "There is a need for a new resolver for actions. The lambda for this is deployed in AWS, and the source code is in .../steverhoton-action/lambda. Update the graphql implementation to add an endpoint for parts. You can read (but not modify) the source code, and use AWS credentials and temporary credentials in ~/git/tmp/pass.json to test how the lambda works. Update the appsync implementation in the terraform directory to support this endpoint. Ultrathink this, and ask me any questions you have."
+
+2. User: "ok. Please commit your work, add prompts in this session to the commit via git notes, push it, and using your github mcp integration, create a PR."
+
+Context:
+- This was a continuation from a previous session where parts resolver was implemented
+- User requested actions resolver integration (note: prompt mentioned "parts" but context shows "actions")
+- Task involved reading existing lambda source code in steverhoton-action/lambda
+- Integration with AppSync GraphQL API through terraform configuration
+- Testing with AWS credentials provided in ~/git/tmp/pass.json
+- Full deployment and verification of the actions GraphQL endpoint
+
+Implementation Summary:
+- Explored actions lambda structure and API (6 operations)
+- Designed comprehensive GraphQL schema for commercial vehicle maintenance
+- Created terraform configuration for AppSync integration
+- Successfully deployed and tested the actions resolver
+- Verified lambda responds correctly to GraphQL events
