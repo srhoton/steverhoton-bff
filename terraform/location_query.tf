@@ -108,6 +108,51 @@ EOF
 }
 EOF
 
+  # Request template for create shop location mutation (uses generic createLocation)
+  location_create_shop_request_template = <<EOF
+{
+  "version": "2017-02-28",
+  "operation": "Invoke",
+  "payload": {
+    "field": "createLocation",
+    "arguments": {
+      "input": {
+        "accountId": $util.toJson($context.arguments.input.accountId),
+        "locationType": "shop",
+        "shop": $util.toJson($context.arguments.input.shop),
+        "extendedAttributes": $util.toJson($context.arguments.input.extendedAttributes)
+      }
+    },
+    "identity": $util.toJson($context.identity),
+    "request": $util.toJson($context.request),
+    "source": $util.toJson($context.source)
+  }
+}
+EOF
+
+  # Request template for update shop location mutation (uses generic updateLocation)
+  location_update_shop_request_template = <<EOF
+{
+  "version": "2017-02-28",
+  "operation": "Invoke",
+  "payload": {
+    "field": "updateLocation",
+    "arguments": {
+      "locationId": $util.toJson($context.arguments.locationId),
+      "input": {
+        "accountId": $util.toJson($context.arguments.input.accountId),
+        "locationType": "shop",
+        "shop": $util.toJson($context.arguments.input.shop),
+        "extendedAttributes": $util.toJson($context.arguments.input.extendedAttributes)
+      }
+    },
+    "identity": $util.toJson($context.identity),
+    "request": $util.toJson($context.request),
+    "source": $util.toJson($context.source)
+  }
+}
+EOF
+
   # Request template for delete mutations (direct arguments)
   location_delete_request_template = <<EOF
 {
@@ -262,6 +307,32 @@ resource "aws_appsync_resolver" "update_coordinates_location" {
   type        = "Mutation"
 
   request_template  = local.location_update_coordinates_request_template
+  response_template = local.location_response_template
+
+  depends_on = [aws_appsync_graphql_api.bff_api]
+}
+
+# AppSync Resolver for createShopLocation mutation (uses generic createLocation)
+resource "aws_appsync_resolver" "create_shop_location" {
+  api_id      = aws_appsync_graphql_api.bff_api.id
+  data_source = aws_appsync_datasource.location_lambda.name
+  field       = "createShopLocation"
+  type        = "Mutation"
+
+  request_template  = local.location_create_shop_request_template
+  response_template = local.location_response_template
+
+  depends_on = [aws_appsync_graphql_api.bff_api]
+}
+
+# AppSync Resolver for updateShopLocation mutation
+resource "aws_appsync_resolver" "update_shop_location" {
+  api_id      = aws_appsync_graphql_api.bff_api.id
+  data_source = aws_appsync_datasource.location_lambda.name
+  field       = "updateShopLocation"
+  type        = "Mutation"
+
+  request_template  = local.location_update_shop_request_template
   response_template = local.location_response_template
 
   depends_on = [aws_appsync_graphql_api.bff_api]
