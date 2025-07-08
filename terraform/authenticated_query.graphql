@@ -22,4 +22,7 @@ type Query {
   listParts(input: ListPartsInput!): PartListOutput
   getPartsByLocation(accountId: String!, locationId: String!, limit: Int, nextToken: String): PartListOutput
   getPartsByUnit(accountId: String!, unitId: String!, limit: Int, nextToken: String): PartListOutput
+  getActionJob(input: GetActionJobInput!): ActionJob
+  listActionJobs(input: ListActionJobsInput!): ActionJobListOutput
+  listActionJobsByUnit(input: ListActionJobsByUnitInput!): ActionJobListOutput
 }
