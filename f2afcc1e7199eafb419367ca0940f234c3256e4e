@@ -1,0 +1,19 @@
+Session prompts:
+
+User Request 1: 'Ok. The locations lambda has changed, and now also supports a 'shop' location type. Look at the aws cli, and the source code in ../steverhoton-location/lambda and update the location graphql schema, run terraform apply to push out your changes, and verify it works. Ultrathink.'
+
+User Request 2: '[Request interrupted by user]resume what you were doing'
+
+User Request 3: 'Re-evaluate the lambda and the issue that was identified. It should be fixed. Update your work accordingly.'
+
+User Request 4: 'ok. Please commit your work, add prompts in this session to the commit via git notes, push it, and using your github mcp integration, create a PR.'
+
+Tasks completed:
+- Examined location lambda source code for shop location model support
+- Updated GraphQL schema to include ShopLocation type and Shop type
+- Added createShopLocation and updateShopLocation mutations with input types
+- Updated terraform configuration with AppSync resolvers for shop operations
+- Deployed changes with terraform apply
+- Tested shop location creation and retrieval functionality
+- Verified GraphQL schema deployment
+- Identified and confirmed lambda handler fixes for shop type support
