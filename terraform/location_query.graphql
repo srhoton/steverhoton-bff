@@ -1,5 +1,5 @@
 # Location union type for polymorphic location handling
-union Location = AddressLocation | CoordinatesLocation
+union Location = AddressLocation | CoordinatesLocation | ShopLocation
 
 # Address location type definition
 type AddressLocation {
@@ -19,6 +19,15 @@ type CoordinatesLocation {
   coordinates: Coordinates!
 }
 
+# Shop location type definition
+type ShopLocation {
+  locationId: String!
+  accountId: String!
+  locationType: String!
+  extendedAttributes: AWSJSON
+  shop: Shop!
+}
+
 # Address type definition
 type Address {
   streetAddress: String!
@@ -35,6 +44,13 @@ type Coordinates {
   longitude: Float!
   altitude: Float
   accuracy: Float
+}
+
+# Shop type definition
+type Shop {
+  name: String!
+  contactId: String!
+  address: Address!
 }
 
 # List output type for paginated location results
@@ -57,6 +73,12 @@ input CreateCoordinatesLocationInput {
   extendedAttributes: AWSJSON
 }
 
+input CreateShopLocationInput {
+  accountId: String!
+  shop: ShopInput!
+  extendedAttributes: AWSJSON
+}
+
 
 input UpdateAddressLocationInput {
   accountId: String!
@@ -67,6 +89,12 @@ input UpdateAddressLocationInput {
 input UpdateCoordinatesLocationInput {
   accountId: String!
   coordinates: CoordinatesInput!
+  extendedAttributes: AWSJSON
+}
+
+input UpdateShopLocationInput {
+  accountId: String!
+  shop: ShopInput!
   extendedAttributes: AWSJSON
 }
 
@@ -84,6 +112,12 @@ input CoordinatesInput {
   longitude: Float!
   altitude: Float
   accuracy: Float
+}
+
+input ShopInput {
+  name: String!
+  contactId: String!
+  address: AddressInput!
 }
 
 # Removed GetLocationInput - now uses direct arguments
