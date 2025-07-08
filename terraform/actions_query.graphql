@@ -1,0 +1,255 @@
+# Action Job type definitions for commercial vehicle maintenance
+
+# Unit information captured at time of job creation
+type UnitInfo {
+  vin: String!
+  unitNumber: String
+  unitTypeId: String
+  mileage: Float
+}
+
+# Labor operation performed during maintenance
+type LaborOperation {
+  operationId: String!
+  description: String!
+  laborCode: String
+  estimatedHours: Float
+  actualHours: Float
+  technicianId: String
+}
+
+# Part used in maintenance job
+type ActionPart {
+  partId: String!
+  quantity: Float
+}
+
+# Vehicle system inspection result
+type SystemCheck {
+  systemName: String!
+  status: String!
+  notes: String
+}
+
+# Document or image attachment
+type Attachment {
+  attachmentId: String!
+  type: String!
+  fileName: String
+  description: String
+}
+
+# DOT inspection information
+type DOTInspection {
+  inspectionType: String
+  inspectorId: String
+  inspectionDate: String
+  nextDueDate: String
+  defectsFound: Boolean
+  outOfService: Boolean
+}
+
+# Emissions test information
+type EmissionsTest {
+  testDate: String
+  testResult: String
+  nextDueDate: String
+  certificateNumber: String
+}
+
+# Warranty claim information
+type WarrantyInfo {
+  warrantyClaimNumber: String
+  warrantyProvider: String
+  coverageType: String
+}
+
+# Extended attributes for compliance and custom data
+type ExtendedAttributes {
+  dotInspection: DOTInspection
+  emissionsTest: EmissionsTest
+  warrantyInfo: WarrantyInfo
+  customFields: AWSJSON
+}
+
+# Main ActionJob type
+type ActionJob {
+  accountId: String!
+  jobId: String!
+  unitId: String!
+  actionType: String!
+  createdAt: AWSDateTime!
+  status: String!
+  unitInfo: UnitInfo
+  priority: String
+  description: String
+  locationId: String
+  contactIds: [String]
+  laborOperations: [LaborOperation]
+  partsUsed: [ActionPart]
+  systemsChecked: [SystemCheck]
+  attachments: [Attachment]
+  extendedAttributes: ExtendedAttributes
+  updatedAt: AWSDateTime
+  completedAt: AWSDateTime
+  createdBy: String
+  updatedBy: String
+}
+
+# Paginated list response for action jobs
+type ActionJobListOutput {
+  items: [ActionJob!]!
+  nextToken: String
+}
+
+# Success response for delete operations
+type DeleteActionJobResponse {
+  success: Boolean!
+  message: String!
+}
+
+# Input type definitions
+
+# Unit information input
+input UnitInfoInput {
+  vin: String!
+  unitNumber: String
+  unitTypeId: String
+  mileage: Float
+}
+
+# Labor operation input
+input LaborOperationInput {
+  operationId: String!
+  description: String!
+  laborCode: String
+  estimatedHours: Float
+  actualHours: Float
+  technicianId: String
+}
+
+# Part input
+input ActionPartInput {
+  partId: String!
+  quantity: Float
+}
+
+# System check input
+input SystemCheckInput {
+  systemName: String!
+  status: String!
+  notes: String
+}
+
+# Attachment input
+input AttachmentInput {
+  attachmentId: String!
+  type: String!
+  fileName: String
+  description: String
+}
+
+# DOT inspection input
+input DOTInspectionInput {
+  inspectionType: String
+  inspectorId: String
+  inspectionDate: String
+  nextDueDate: String
+  defectsFound: Boolean
+  outOfService: Boolean
+}
+
+# Emissions test input
+input EmissionsTestInput {
+  testDate: String
+  testResult: String
+  nextDueDate: String
+  certificateNumber: String
+}
+
+# Warranty info input
+input WarrantyInfoInput {
+  warrantyClaimNumber: String
+  warrantyProvider: String
+  coverageType: String
+}
+
+# Extended attributes input
+input ExtendedAttributesInput {
+  dotInspection: DOTInspectionInput
+  emissionsTest: EmissionsTestInput
+  warrantyInfo: WarrantyInfoInput
+  customFields: AWSJSON
+}
+
+# Create action job input
+input CreateActionJobInput {
+  accountId: String!
+  unitId: String!
+  jobId: String!
+  actionType: String!
+  description: String
+  priority: String
+  status: String
+  locationId: String
+  contactIds: [String]
+  unitInfo: UnitInfoInput
+  laborOperations: [LaborOperationInput]
+  partsUsed: [ActionPartInput]
+  systemsChecked: [SystemCheckInput]
+  attachments: [AttachmentInput]
+  extendedAttributes: ExtendedAttributesInput
+  createdBy: String
+}
+
+# Update action job input
+input UpdateActionJobInput {
+  accountId: String!
+  unitId: String!
+  jobId: String!
+  actionType: String
+  description: String
+  priority: String
+  status: String
+  locationId: String
+  contactIds: [String]
+  unitInfo: UnitInfoInput
+  laborOperations: [LaborOperationInput]
+  partsUsed: [ActionPartInput]
+  systemsChecked: [SystemCheckInput]
+  attachments: [AttachmentInput]
+  extendedAttributes: ExtendedAttributesInput
+  updatedBy: String
+}
+
+# Get action job input
+input GetActionJobInput {
+  accountId: String!
+  unitId: String!
+  jobId: String!
+}
+
+# Delete action job input
+input DeleteActionJobInput {
+  accountId: String!
+  unitId: String!
+  jobId: String!
+}
+
+# List action jobs input
+input ListActionJobsInput {
+  accountId: String!
+  limit: Int
+  nextToken: String
+}
+
+# List action jobs by unit input
+input ListActionJobsByUnitInput {
+  accountId: String!
+  unitId: String!
+  limit: Int
+  nextToken: String
+}
+
+# Actions operations are defined in the main Query and Mutation types
+# in authenticated_query.graphql and contact_query.graphql respectively

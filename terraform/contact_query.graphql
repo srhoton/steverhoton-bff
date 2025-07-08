@@ -86,4 +86,7 @@ type Mutation {
   createPart(input: CreatePartInput!): Part
   updatePart(input: UpdatePartInput!): Part
   deletePart(input: DeletePartInput!): DeletePartResponse
+  createActionJob(input: CreateActionJobInput!): ActionJob
+  updateActionJob(input: UpdateActionJobInput!): ActionJob
+  deleteActionJob(input: DeleteActionJobInput!): DeleteActionJobResponse
 }
