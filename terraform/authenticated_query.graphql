@@ -18,4 +18,8 @@ type Query {
   listAccounts(input: ListAccountsInput!): ListAccountsResponse
   getUnit(input: GetUnitInput!): UnitResponse
   listUnits(input: ListUnitsInput!): ListUnitsResponse
+  getPart(input: GetPartInput!): Part
+  listParts(input: ListPartsInput!): PartListOutput
+  getPartsByLocation(accountId: String!, locationId: String!, limit: Int, nextToken: String): PartListOutput
+  getPartsByUnit(accountId: String!, unitId: String!, limit: Int, nextToken: String): PartListOutput
 }
