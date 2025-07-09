@@ -9,6 +9,7 @@ type Dimensions {
 type Part {
   accountId: String!
   sortKey: String!
+  partId: String!
   partNumber: String!
   description: String!
   manufacturer: String!
