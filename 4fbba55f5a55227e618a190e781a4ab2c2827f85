@@ -1,0 +1,24 @@
+Session Prompts and Context:
+
+Initial Request: "ok, can you try to plan and apply it."
+- User requested to plan and apply the terraform changes for events resolver
+
+Main Task: "Ok. Now, using the graphql events resolver you just created, please add 10 random events to unit 26e50d66-5e4c-4808-ac79-99754b8f40f6 (which is in account acc-e4c8f468-e0b1-7049-6f0f-48b0b4f27aa5). There are temporary credentials you can do this in ~/git/tmp/pass.json you can use to authenticate. You have access to the aws cli to troubleshoot any issues. Let me know what questions you have. Ultrathink."
+
+Debugging Guidance: "You can also query the resolver cloudwatch logs if that helps."
+
+Session involved:
+1. Applying terraform configuration for events GraphQL resolver
+2. Creating 10 diverse random events using GraphQL mutations
+3. Troubleshooting lambda interface conversion errors via CloudWatch logs
+4. Iterating on event creation scripts to fix validation errors
+5. Identifying and reporting lambda bugs for query operations
+6. Testing fixes and verifying full functionality
+
+Key technical challenges resolved:
+- AppSync resolver template argument passing ($context.arguments vs $context.arguments.input)
+- Event validation errors (account ID format, event types, priority values)
+- Lambda interface conversion bugs in query operations
+- GraphQL response format issues for list operations
+
+Final outcome: Fully functional events GraphQL API with 10 test events successfully created and verified.
