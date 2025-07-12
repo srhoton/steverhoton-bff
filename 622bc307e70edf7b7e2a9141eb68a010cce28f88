@@ -1,0 +1,29 @@
+Session Prompts and Context:
+
+Bug Report Investigation 1: "Hi, we have a bug report on the events endpoint. Can you look at it? If the problem is the downstream lambda, write up the issue so I can have another team look at it. The reported issue is: Error Analysis - Error Type: DynamoDB ValidationException..."
+
+Testing After Fix 1: "This is reported as fixed now. Can you retest?"
+
+Bug Report Investigation 2: "Hi, we have another bug report on the events endpoint. Can you look at it? If the problem is the downstream lambda, write up the issue so I can have another team look at it. The reported issue is: Error Analysis - Error Type: GraphQL validation error in the BFF backend..."
+
+Testing After Fix 2: "This is reported as fixed now. Can you retest?"
+
+Final Documentation Request: "ok. Please commit your work, add prompts in this session to the commit via git notes, push it, and using your github mcp integration, create a PR."
+
+Session involved:
+1. Investigating DynamoDB ValidationException for reserved keyword "status" in listEventsByStatus
+2. Testing and verifying fix for DynamoDB reserved keyword escaping
+3. Investigating updateEvent validation being too strict for status-only updates on maintenance events
+4. Testing and verifying fix for partial update validation
+5. Comprehensive verification of all GraphQL operations after fixes
+6. Documenting bug reports and test verification results
+
+Key technical findings:
+- DynamoDB reserved keyword "status" needed Expression Attribute Names escaping
+- Lambda conditional validation was too strict for maintenance events requiring maintenanceDetails
+- All query operations (getEvent, listEventsByUnit, listEventsByCategory, listEventsByStatus) working
+- All mutation operations (createEvent, updateEvent) working after fixes
+- Status updates now work for both maintenance and fault events
+- Comprehensive test coverage across 10 test events
+
+Final outcome: All events GraphQL API operations fully functional with documented bug resolution.
