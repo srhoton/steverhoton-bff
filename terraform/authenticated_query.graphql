@@ -25,4 +25,9 @@ type Query {
   getActionJob(input: GetActionJobInput!): ActionJob
   listActionJobs(input: ListActionJobsInput!): ActionJobListOutput
   listActionJobsByUnit(input: ListActionJobsByUnitInput!): ActionJobListOutput
+  getEvent(input: GetEventInput!): Event
+  listEvents(input: ListEventsInput!): EventListOutput
+  listEventsByUnit(input: ListEventsByUnitInput!): EventListOutput
+  listEventsByCategory(input: ListEventsByCategoryInput!): EventListOutput
+  listEventsByStatus(input: ListEventsByStatusInput!): EventListOutput
 }

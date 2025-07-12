@@ -1,0 +1,337 @@
+# Event management for commercial vehicle fleet operations
+
+# Unit information captured at event creation
+type EventUnitInfo {
+  vin: String!
+  unitNumber: String
+  unitTypeId: String
+  mileage: Float
+  engineHours: Float
+  currentLocation: String
+}
+
+# Maintenance-specific event details
+type MaintenanceDetails {
+  maintenanceType: String
+  scheduledDate: String
+  completedDate: String
+  maintenanceProvider: String
+  workOrderNumber: String
+  partsReplaced: [String]
+  laborHours: Float
+  cost: Float
+  notes: String
+}
+
+# Fault code or diagnostic information
+type FaultDetails {
+  faultCode: String
+  faultDescription: String
+  systemAffected: String
+  dtcCode: String
+  diagnosticDate: String
+  resolvedDate: String
+  resolutionActions: [String]
+}
+
+# Certification and compliance details
+type CertificationDetails {
+  certificationType: String
+  certificationNumber: String
+  issuingAuthority: String
+  issueDate: String
+  expirationDate: String
+  status: String
+  notes: String
+}
+
+# Error report details
+type ErrorReportDetails {
+  errorCode: String
+  errorMessage: String
+  stackTrace: String
+  sourceComponent: String
+  reportedBy: String
+  reproductionSteps: [String]
+}
+
+# Related event reference
+type RelatedEvent {
+  eventId: String!
+  relationshipType: String!
+  description: String
+}
+
+# File or document attachment
+type EventAttachment {
+  attachmentId: String!
+  fileName: String!
+  fileType: String!
+  fileSize: Float
+  description: String
+  uploadedBy: String
+  uploadedAt: String
+}
+
+# Resolution information
+type ResolutionDetails {
+  resolutionType: String
+  resolutionSummary: String
+  actionsTaken: [String]
+  resolvedBy: String
+  resolutionCost: Float
+  preventiveMeasures: [String]
+}
+
+# Notification settings
+type EventNotification {
+  notificationType: String!
+  recipient: String!
+  channel: String!
+  sentAt: String
+  status: String
+}
+
+# Main Event type
+type Event {
+  accountId: String!
+  eventId: String!
+  unitId: String!
+  unitInfo: EventUnitInfo
+  eventCategory: String!
+  eventType: String!
+  severity: String
+  priority: String
+  description: String
+  summary: String
+  sourceSystem: String
+  
+  # Event-specific details
+  maintenanceDetails: MaintenanceDetails
+  faultDetails: FaultDetails
+  certificationDetails: CertificationDetails
+  errorReportDetails: ErrorReportDetails
+  
+  # Common fields
+  relatedEvents: [RelatedEvent]
+  attachments: [EventAttachment]
+  extendedAttributes: AWSJSON
+  status: String!
+  resolutionDetails: ResolutionDetails
+  notifications: [EventNotification]
+  
+  # Timestamps
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime
+  acknowledgedAt: AWSDateTime
+  resolvedAt: AWSDateTime
+  closedAt: AWSDateTime
+  
+  # User fields
+  createdBy: String
+  updatedBy: String
+  assignedTo: [String]
+}
+
+# Paginated list response for events
+type EventListOutput {
+  items: [Event!]!
+  nextToken: String
+}
+
+# Success response for delete operations
+type DeleteEventResponse {
+  success: Boolean!
+  message: String!
+}
+
+# Input type definitions
+
+# Unit information input
+input EventUnitInfoInput {
+  vin: String!
+  unitNumber: String
+  unitTypeId: String
+  mileage: Float
+  engineHours: Float
+  currentLocation: String
+}
+
+# Maintenance details input
+input MaintenanceDetailsInput {
+  maintenanceType: String
+  scheduledDate: String
+  completedDate: String
+  maintenanceProvider: String
+  workOrderNumber: String
+  partsReplaced: [String]
+  laborHours: Float
+  cost: Float
+  notes: String
+}
+
+# Fault details input
+input FaultDetailsInput {
+  faultCode: String
+  faultDescription: String
+  systemAffected: String
+  dtcCode: String
+  diagnosticDate: String
+  resolvedDate: String
+  resolutionActions: [String]
+}
+
+# Certification details input
+input CertificationDetailsInput {
+  certificationType: String
+  certificationNumber: String
+  issuingAuthority: String
+  issueDate: String
+  expirationDate: String
+  status: String
+  notes: String
+}
+
+# Error report details input
+input ErrorReportDetailsInput {
+  errorCode: String
+  errorMessage: String
+  stackTrace: String
+  sourceComponent: String
+  reportedBy: String
+  reproductionSteps: [String]
+}
+
+# Related event input
+input RelatedEventInput {
+  eventId: String!
+  relationshipType: String!
+  description: String
+}
+
+# Attachment input
+input EventAttachmentInput {
+  attachmentId: String!
+  fileName: String!
+  fileType: String!
+  fileSize: Float
+  description: String
+  uploadedBy: String
+}
+
+# Resolution details input
+input ResolutionDetailsInput {
+  resolutionType: String
+  resolutionSummary: String
+  actionsTaken: [String]
+  resolvedBy: String
+  resolutionCost: Float
+  preventiveMeasures: [String]
+}
+
+# Notification input
+input EventNotificationInput {
+  notificationType: String!
+  recipient: String!
+  channel: String!
+}
+
+# Create event input
+input CreateEventInput {
+  accountId: String!
+  unitId: String!
+  eventId: String!
+  eventCategory: String!
+  eventType: String!
+  severity: String
+  priority: String
+  description: String
+  summary: String
+  sourceSystem: String
+  unitInfo: EventUnitInfoInput
+  maintenanceDetails: MaintenanceDetailsInput
+  faultDetails: FaultDetailsInput
+  certificationDetails: CertificationDetailsInput
+  errorReportDetails: ErrorReportDetailsInput
+  relatedEvents: [RelatedEventInput]
+  attachments: [EventAttachmentInput]
+  extendedAttributes: AWSJSON
+  status: String
+  resolutionDetails: ResolutionDetailsInput
+  notifications: [EventNotificationInput]
+  createdBy: String
+  assignedTo: [String]
+}
+
+# Update event input
+input UpdateEventInput {
+  accountId: String!
+  eventId: String!
+  unitId: String
+  eventCategory: String
+  eventType: String
+  severity: String
+  priority: String
+  description: String
+  summary: String
+  sourceSystem: String
+  unitInfo: EventUnitInfoInput
+  maintenanceDetails: MaintenanceDetailsInput
+  faultDetails: FaultDetailsInput
+  certificationDetails: CertificationDetailsInput
+  errorReportDetails: ErrorReportDetailsInput
+  relatedEvents: [RelatedEventInput]
+  attachments: [EventAttachmentInput]
+  extendedAttributes: AWSJSON
+  status: String
+  resolutionDetails: ResolutionDetailsInput
+  notifications: [EventNotificationInput]
+  updatedBy: String
+  assignedTo: [String]
+}
+
+# Get event input
+input GetEventInput {
+  accountId: String!
+  eventId: String!
+}
+
+# Delete event input
+input DeleteEventInput {
+  accountId: String!
+  eventId: String!
+}
+
+# List events input
+input ListEventsInput {
+  accountId: String!
+  limit: Int
+  nextToken: String
+}
+
+# List events by unit input
+input ListEventsByUnitInput {
+  accountId: String!
+  unitId: String!
+  limit: Int
+  nextToken: String
+}
+
+# List events by category input
+input ListEventsByCategoryInput {
+  accountId: String!
+  eventCategory: String!
+  limit: Int
+  nextToken: String
+}
+
+# List events by status input
+input ListEventsByStatusInput {
+  accountId: String!
+  status: String!
+  limit: Int
+  nextToken: String
+}
+
+# Event operations are defined in the main Query and Mutation types
+# in authenticated_query.graphql and contact_query.graphql respectively

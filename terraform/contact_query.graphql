@@ -91,4 +91,7 @@ type Mutation {
   createActionJob(input: CreateActionJobInput!): ActionJob
   updateActionJob(input: UpdateActionJobInput!): ActionJob
   deleteActionJob(input: DeleteActionJobInput!): DeleteActionJobResponse
+  createEvent(input: CreateEventInput!): Event
+  updateEvent(input: UpdateEventInput!): Event
+  deleteEvent(input: DeleteEventInput!): DeleteEventResponse
 }
