@@ -17,7 +17,9 @@ locals {
     file("${path.module}/units_query.graphql"),
     file("${path.module}/parts_query.graphql"),
     file("${path.module}/actions_query.graphql"),
-    file("${path.module}/events_query.graphql")
+    file("${path.module}/events_query.graphql"),
+    file("${path.module}/labor_lines_query.graphql"),
+    file("${path.module}/tasks_query.graphql")
   ])
 }
 

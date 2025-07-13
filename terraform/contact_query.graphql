@@ -94,4 +94,10 @@ type Mutation {
   createEvent(input: CreateEventInput!): Event
   updateEvent(input: UpdateEventInput!): Event
   deleteEvent(input: DeleteEventInput!): DeleteEventResponse
+  createLaborLine(input: CreateLaborLineInput!): LaborLine!
+  updateLaborLine(input: UpdateLaborLineInput!): LaborLine!
+  deleteLaborLine(input: DeleteLaborLineInput!): DeleteLaborLineResponse!
+  createTask(input: CreateTaskInput!): Task!
+  updateTask(input: UpdateTaskInput!): Task!
+  deleteTask(input: DeleteTaskInput!): DeleteTaskResponse!
 }
