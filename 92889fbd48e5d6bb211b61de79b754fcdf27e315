@@ -1,0 +1,30 @@
+Session prompts that led to this implementation:
+
+1. "There is a need for a new resolver for labor-lines. The lambda for this is deployed in AWS, and the source code is in .../steverhoton-labor-lines/lambda. Update the graphql implementation to add an endpoint for labor-lines. You can read (but not modify) the source code, and use AWS credentials and temporary credentials in ~/git/tmp/pass.json to test how the lambda works. Update the appsync implementation in the terraform directory to support this endpoint. Ultrathink this, and ask me any questions you have."
+
+2. "ok, this is now reported as fixed. Can you confirm? If it is fixed, delete the bug report."
+
+3. "There is a need for a new resolver for tasks. The lambda for this is deployed in AWS, and the source code is in .../steverhoton-task/lambda. Update the graphql implementation to add an endpoint for tasks. You can read (but not modify) the source code, and use AWS credentials and temporary credentials in ~/git/tmp/pass.json to test how the lambda works. Update the appsync implementation in the terraform directory to support this endpoint. Ultrathink this, and ask me any questions you have."
+
+4. "Could you describe the minor issue so I could get the lambda team working on it?"
+
+5. "ok, that is reported as fixed. Can you confirm?"
+
+6. "Can you explain the null data issue so I can get the lambda team to work on it?"
+
+7. "ok. Could you retry?"
+
+8. "Please check that issue again."
+
+9. "Please check that issue again."
+
+10. "Switch the graphql implementation to 'in-progress' please."
+
+11. "Please check that issue again."
+
+Key technical challenges resolved:
+- Lambda argument parsing issues (event.Info.FieldName vs event.FieldName)
+- GraphQL enum value incompatibility (inProgress vs in-progress)
+- VTL template mapping for status transformation
+- Validation requirements (laborlinesId cannot be empty)
+- Response format mapping between lambda and GraphQL
