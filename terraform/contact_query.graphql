@@ -100,4 +100,7 @@ type Mutation {
   createTask(input: CreateTaskInput!): Task!
   updateTask(input: UpdateTaskInput!): Task!
   deleteTask(input: DeleteTaskInput!): DeleteTaskResponse!
+  createWorkOrder(input: CreateWorkOrderInput!): WorkOrder!
+  updateWorkOrder(input: UpdateWorkOrderInput!): WorkOrder!
+  deleteWorkOrder(accountId: ID!, workOrderId: ID!): Boolean!
 }

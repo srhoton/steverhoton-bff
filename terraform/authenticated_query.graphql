@@ -34,4 +34,6 @@ type Query {
   listLaborLines(input: ListLaborLinesInput!): [LaborLine!]!
   getTask(input: GetTaskInput!): Task
   listTasks(input: ListTasksInput!): TaskListResponse!
+  getWorkOrder(accountId: ID!, workOrderId: ID!): WorkOrder
+  listWorkOrders(accountId: ID!, includeDeleted: Boolean = false): [WorkOrder!]!
 }
