@@ -1,0 +1,94 @@
+# Task Types
+
+type Task {
+  taskId: String!
+  accountId: String!
+  workOrderId: String!
+  contactId: String!
+  laborlinesId: [String!]!
+  notes: [String!]
+  status: TaskStatus!
+  estimateHours: Float
+  actualHours: Float
+  startDate: AWSTimestamp
+  endDate: AWSTimestamp
+  createdAt: AWSTimestamp!
+  updatedAt: AWSTimestamp!
+  deletedAt: AWSTimestamp
+}
+
+enum TaskStatus {
+  pending
+  inProgress
+  completed
+}
+
+# Input Types for Task Operations
+
+input CreateTaskInput {
+  accountId: String!
+  workOrderId: String!
+  contactId: String!
+  laborlinesId: [String!]!
+  notes: [String!]
+  status: TaskStatus
+  estimateHours: Float
+  actualHours: Float
+  startDate: AWSTimestamp
+  endDate: AWSTimestamp
+}
+
+input UpdateTaskInput {
+  taskId: String!
+  accountId: String!
+  contactId: String
+  laborlinesId: [String!]
+  notes: [String!]
+  status: TaskStatus
+  estimateHours: Float
+  actualHours: Float
+  startDate: AWSTimestamp
+  endDate: AWSTimestamp
+}
+
+input GetTaskInput {
+  taskId: String!
+  accountId: String!
+}
+
+input ListTasksInput {
+  accountId: String!
+  workOrderId: String
+  status: TaskStatus
+  limit: Int
+  nextToken: String
+}
+
+input DeleteTaskInput {
+  taskId: String!
+  accountId: String!
+}
+
+# Response Types
+
+type TaskListResponse {
+  tasks: [Task!]!
+  nextToken: String
+}
+
+type DeleteTaskResponse {
+  success: Boolean!
+  message: String
+}
+
+# Query and Mutation Extensions
+# Note: These will be added to the main schema files to avoid "extend" issues
+
+# Query operations (to be added to authenticated_query.graphql):
+# getTask(input: GetTaskInput!): Task
+# listTasks(input: ListTasksInput!): TaskListResponse!
+
+# Mutation operations (to be added to contact_query.graphql):
+# createTask(input: CreateTaskInput!): Task!
+# updateTask(input: UpdateTaskInput!): Task!
+# deleteTask(input: DeleteTaskInput!): DeleteTaskResponse!

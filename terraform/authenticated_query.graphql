@@ -30,4 +30,8 @@ type Query {
   listEventsByUnit(input: ListEventsByUnitInput!): EventListOutput
   listEventsByCategory(input: ListEventsByCategoryInput!): EventListOutput
   listEventsByStatus(input: ListEventsByStatusInput!): EventListOutput
+  getLaborLine(input: GetLaborLineInput!): LaborLine
+  listLaborLines(input: ListLaborLinesInput!): [LaborLine!]!
+  getTask(input: GetTaskInput!): Task
+  listTasks(input: ListTasksInput!): TaskListResponse!
 }

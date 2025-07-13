@@ -1,0 +1,61 @@
+# Labor Lines management for work order task assignments
+
+# Labor Line represents a maintenance task assignment to a contact
+type LaborLine {
+  laborLineId: String!
+  contactId: String!
+  accountId: String!
+  taskId: String!
+  partId: [String!]
+  notes: [String!]
+  createdAt: AWSTimestamp!
+  updatedAt: AWSTimestamp!
+  deletedAt: AWSTimestamp
+}
+
+# Input for creating a new labor line
+input CreateLaborLineInput {
+  contactId: String!
+  accountId: String!
+  taskId: String!
+  partId: [String!]
+  notes: [String!]
+}
+
+# Input for updating an existing labor line
+input UpdateLaborLineInput {
+  laborLineId: String!
+  contactId: String!
+  accountId: String!
+  taskId: String!
+  partId: [String!]
+  notes: [String!]
+}
+
+# Input for retrieving a specific labor line
+input GetLaborLineInput {
+  accountId: String!
+  taskId: String!
+  laborLineId: String!
+}
+
+# Input for listing labor lines
+input ListLaborLinesInput {
+  accountId: String!
+  taskId: String  # Optional filter by specific task
+}
+
+# Input for deleting a labor line
+input DeleteLaborLineInput {
+  accountId: String!
+  taskId: String!
+  laborLineId: String!
+}
+
+# Response for delete operations
+type DeleteLaborLineResponse {
+  success: Boolean!
+  message: String!
+}
+
+# Note: Query and Mutation operations are defined in authenticated_query.graphql and contact_query.graphql respectively
