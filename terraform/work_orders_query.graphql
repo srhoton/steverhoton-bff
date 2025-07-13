@@ -1,0 +1,38 @@
+# Work Orders GraphQL Schema
+# This schema defines work order types and operations for the AppSync API
+
+# Work Order Status enum with proper GraphQL naming
+enum WorkOrderStatus {
+  draft
+  pending
+  inProgress
+  done
+}
+
+# Input types for work order operations
+input CreateWorkOrderInput {
+  accountId: ID!
+  contactId: ID!
+  status: WorkOrderStatus!
+  notes: [String!]
+}
+
+input UpdateWorkOrderInput {
+  accountId: ID!
+  workOrderId: ID!
+  contactId: ID
+  status: WorkOrderStatus
+  notes: [String!]
+}
+
+# Main work order type
+type WorkOrder {
+  workOrderId: ID!
+  accountId: ID!
+  contactId: ID!
+  status: WorkOrderStatus!
+  notes: [String!]!
+  createdAt: AWSTimestamp!
+  updatedAt: AWSTimestamp!
+  deletedAt: AWSTimestamp
+}
