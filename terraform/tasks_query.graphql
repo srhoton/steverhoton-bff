@@ -6,8 +6,8 @@ type Task {
   workOrderId: String!
   contactId: String!
   locationId: String!
-  description: String!
-  laborlinesId: [String!]!
+  description: String
+  laborlinesId: [String!]
   notes: [String!]
   status: TaskStatus!
   estimateHours: Float
@@ -32,8 +32,8 @@ input CreateTaskInput {
   workOrderId: String!
   contactId: String!
   locationId: String!
-  description: String!
-  laborlinesId: [String!]!
+  description: String
+  laborlinesId: [String!]
   notes: [String!]
   status: TaskStatus
   estimateHours: Float
