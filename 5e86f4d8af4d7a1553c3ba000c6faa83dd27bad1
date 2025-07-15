@@ -1,0 +1,17 @@
+User requested: 'Ok. Now, we need to update the work order schema. It should require a unitId on create - you can look in the code in steverhoton-work-order/lambda to verify.'
+
+Session included:
+- Re-running work order tests after Lambda deployment fix
+- Removing test code from PR #19
+- Resolving git checkout blocking issues
+- Adding 1000 character description field to labor lines schema
+- Making unitId required on work order creation based on Lambda validation
+
+Key changes made:
+1. Updated work order status enum handling in VTL template
+2. Removed all test files from PR while preserving production code
+3. Added description field to labor lines schema and inputs
+4. Made unitId required in CreateWorkOrderInput and WorkOrder type
+5. Added optional unitId to UpdateWorkOrderInput
+
+Lambda validation analysis showed unitId is required with UUID format validation in work-order-schema.json
