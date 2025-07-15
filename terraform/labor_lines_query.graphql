@@ -1,9 +1,8 @@
 # Labor Lines management for work order task assignments
 
-# Labor Line represents a maintenance task assignment to a contact
+# Labor Line represents a maintenance task assignment
 type LaborLine {
   laborLineId: String!
-  contactId: String!
   accountId: String!
   taskId: String!
   partId: [String!]
@@ -15,7 +14,6 @@ type LaborLine {
 
 # Input for creating a new labor line
 input CreateLaborLineInput {
-  contactId: String!
   accountId: String!
   taskId: String!
   partId: [String!]
@@ -25,7 +23,6 @@ input CreateLaborLineInput {
 # Input for updating an existing labor line
 input UpdateLaborLineInput {
   laborLineId: String!
-  contactId: String!
   accountId: String!
   taskId: String!
   partId: [String!]

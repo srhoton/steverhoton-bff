@@ -3,7 +3,7 @@ locals {
   # Lambda function name for units resolver
   units_lambda_function_name = "unt-units-svc-prod-lambda"
 
-  # Request template for units resolver (passes full AppSync event structure)
+  # Request template for units resolver (passes input directly to match CreateUnitInput structure)
   units_request_template = <<EOF
 {
   "version": "2017-02-28",
@@ -11,37 +11,25 @@ locals {
   "payload": {
     "typeName": $util.toJson($context.info.parentTypeName),
     "fieldName": $util.toJson($context.info.fieldName),
-    "arguments": $util.toJson($context.arguments),
-    "identity": {
-      "sub": $util.toJson($context.identity.sub),
-      "issuer": $util.toJson($context.identity.issuer),
-      "username": $util.toJson($context.identity.username),
-      "claims": $util.toJson($context.identity.claims),
-      "sourceIp": $util.toJson($context.identity.sourceIp),
-      "defaultAuthStrategy": $util.toJson($context.identity.defaultAuthStrategy),
-      "groups": $util.toJson($context.identity.groups),
-      "userArn": $util.toJson($context.identity.userArn),
-      "accountId": $util.toJson($context.identity.accountId),
-      "cognitoIdentityPoolId": $util.toJson($context.identity.cognitoIdentityPoolId),
-      "cognitoIdentityId": $util.toJson($context.identity.cognitoIdentityId)
-    },
+    "arguments": $util.toJson($context.arguments.input),
+    "identity": $util.toJson($context.identity),
     "source": $util.toJson($context.source),
-    "request": {
-      "headers": $util.toJson($context.request.headers)
-    },
+    "request": $util.toJson($context.request),
     "info": {
       "fieldName": $util.toJson($context.info.fieldName),
       "parentTypeName": $util.toJson($context.info.parentTypeName),
       "variables": $util.toJson($context.info.variables),
-      "selectionSetList": $util.toJson($context.info.selectionSetList),
-      "selectionSetGraphQL": $util.toJson($context.info.selectionSetGraphQL)
-    }
+      "selectionSetList": $util.toJson($context.info.selectionSetList)
+    },
+    "prev": $util.toJson($context.prev)
   }
 }
 EOF
 
   # Response template for units resolver
   units_response_template = <<EOF
+## Units lambda returns {success: bool, data: interface{}, message: string, error: *ErrorInfo} format
+## Pass through the complete response structure
 $util.toJson($context.result)
 EOF
 }
