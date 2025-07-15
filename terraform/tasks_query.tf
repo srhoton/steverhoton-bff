@@ -3,19 +3,13 @@ locals {
   # Lambda function name for tasks resolver  
   tasks_lambda_function_name = "maintenance-task-dev-lambda"
 
-  # Request template for tasks resolver with status mapping
+  # Request template for tasks resolver
   tasks_request_template = <<EOF
-## Transform arguments to map GraphQL enum values to lambda expectations
-#set($arguments = $context.arguments)
-#if($arguments.input && $arguments.input.status && $arguments.input.status == "inProgress")
-  #set($arguments.input.status = "in-progress")
-#end
-
 {
   "version": "2017-02-28",
   "operation": "Invoke",
   "payload": {
-    "arguments": $util.toJson($arguments),
+    "arguments": $util.toJson($context.arguments),
     "identity": $util.toJson($context.identity),
     "request": $util.toJson($context.request),
     "info": {
@@ -30,15 +24,9 @@ locals {
 }
 EOF
 
-  # Response template for tasks resolver with status mapping
+  # Response template for tasks resolver
   tasks_response_template = <<EOF
-## Transform lambda response to map status values back to GraphQL enum values
-#set($result = $context.result)
-#if($result.status && $result.status == "in-progress")
-  #set($result.status = "inProgress")
-#end
-
-$util.toJson($result)
+$util.toJson($context.result)
 EOF
 }
 

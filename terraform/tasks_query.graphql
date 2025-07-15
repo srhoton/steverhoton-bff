@@ -5,6 +5,8 @@ type Task {
   accountId: String!
   workOrderId: String!
   contactId: String!
+  locationId: String!
+  description: String!
   laborlinesId: [String!]!
   notes: [String!]
   status: TaskStatus!
@@ -29,6 +31,8 @@ input CreateTaskInput {
   accountId: String!
   workOrderId: String!
   contactId: String!
+  locationId: String!
+  description: String!
   laborlinesId: [String!]!
   notes: [String!]
   status: TaskStatus
@@ -42,6 +46,8 @@ input UpdateTaskInput {
   taskId: String!
   accountId: String!
   contactId: String
+  locationId: String
+  description: String
   laborlinesId: [String!]
   notes: [String!]
   status: TaskStatus
