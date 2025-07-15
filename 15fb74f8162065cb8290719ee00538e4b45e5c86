@@ -1,0 +1,17 @@
+User Request: Add 1000 character description field to labor lines schema
+
+User: "Ok. The labor lines resolver now support a 1000 character description field (the code is in ../steverhoton-labor-lines/lambda if you need to look at it. Can you modify the labor lines schema to support that?"
+
+Technical Implementation:
+- Examined labor lines Lambda code to understand field structure
+- Description field is optional (omitempty) with 1000 character max validation
+- Updated LaborLine type to include description: String field
+- Updated CreateLaborLineInput and UpdateLaborLineInput to include description
+- Deployed schema changes successfully
+- Verified existing labor lines already have rich descriptions populated
+- Field is working correctly with validation enforced by Lambda layer
+
+Key Finding: The Lambda already returns comprehensive descriptions like:
+- "Comprehensive serpentine belt inspection and preparation work including initial setup"
+- "Complete serpentine belt inspection, installation, and equipment setup procedures"
+- Field is fully functional and ready for use
