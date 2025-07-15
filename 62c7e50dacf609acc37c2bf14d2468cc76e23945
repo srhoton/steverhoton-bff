@@ -1,0 +1,28 @@
+Session Prompts from Claude Code:
+
+1. User: "Can you re-run your tests?"
+   - User requested to re-run the work orders tests to check if the Lambda deployment issue was resolved
+
+2. User: "The enum can only ever be these 4 things (from the resolver code): const (
+    // StatusDraft represents a work order in draft state.
+    StatusDraft WorkOrderStatus = "draft"
+    // StatusPending represents a work order pending execution.
+    StatusPending WorkOrderStatus = "pending"
+    // StatusInProgress represents a work order currently being executed.
+    StatusInProgress WorkOrderStatus = "inProgress"
+    // StatusCompleted represents a completed work order.
+    StatusCompleted WorkOrderStatus = "completed"
+)"
+   - User clarified that the Lambda only returns these 4 exact status values
+
+3. User: "No, you don't. The data is updated. Don't change that logic."
+   - User corrected me when I tried to add mapping logic back for 'done' to 'completed', confirming the database had been updated
+
+4. User: "ok. Please commit your work, add prompts in this session to the commit via git notes, push it, and using your github mcp integration, create a PR."
+   - User requested to commit work, add session prompts as git notes, push, and create a PR
+
+Key Technical Work:
+- Fixed VTL template to pass through Lambda enum values directly since they match GraphQL enum
+- Successfully tested both work order status change to 'completed' and new getWorkOrdersByUnitId endpoint
+- Lambda deployment issue was resolved by backend team
+- Both requested changes are working correctly
