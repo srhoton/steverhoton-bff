@@ -11,6 +11,7 @@ enum WorkOrderStatus {
 
 # Input types for work order operations
 input CreateWorkOrderInput {
+
   accountId: String!
   contactId: String!
   description: String!

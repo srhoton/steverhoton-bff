@@ -2,7 +2,6 @@
 locals {
   # Lambda function name for work orders resolver
   work_orders_lambda_function_name = "work-order-dev-lambda"
-
   # Request template for work orders resolver
   work_orders_request_template = <<EOF
 {
@@ -19,10 +18,12 @@ locals {
 }
 EOF
 
+
   # Response template for work orders resolver - Lambda returns exact enum values
   work_orders_response_template = <<EOF
 ## Lambda returns exact GraphQL enum values: draft, pending, inProgress, completed
 $util.toJson($context.result)
+
 EOF
 }
 
