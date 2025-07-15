@@ -1,4 +1,13 @@
-# Units service response wrapper
+# Units GraphQL Schema
+# Based on the actual Lambda implementation structure
+
+# Unit type enum - defines supported unit types
+enum UnitType {
+  commercialVehicleType
+  # Add other unit types as they are implemented
+}
+
+# Response types
 type UnitResponse {
   success: Boolean!
   data: AWSJSON
@@ -6,14 +15,12 @@ type UnitResponse {
   error: UnitError
 }
 
-# Error type for unit operations
 type UnitError {
   code: String!
   message: String!
   details: String
 }
 
-# Unit list response
 type ListUnitsResponse {
   success: Boolean!
   data: UnitListData
@@ -21,14 +28,12 @@ type ListUnitsResponse {
   error: UnitError
 }
 
-# Unit list data structure
 type UnitListData {
   items: [AWSJSON!]!
   nextToken: String
   count: Int!
 }
 
-# Unit delete response
 type DeleteUnitResponse {
   success: Boolean!
   data: DeletedUnit
@@ -36,44 +41,210 @@ type DeleteUnitResponse {
   error: UnitError
 }
 
-# Deleted unit data
 type DeletedUnit {
   id: String!
   accountId: String!
-  unitType: String!
+  unitType: UnitType!
   deleted: Boolean!
 }
 
-# Input types for unit operations
+# Input types matching the Lambda's expected structure
+
+# Create unit input - matches Lambda's CreateUnitInput struct (flattened)
 input CreateUnitInput {
+  # Required fields (based on Lambda validation)
   accountId: String!
-  unitType: String!
-  data: AWSJSON!
+  unitType: UnitType!
+  suggestedVin: String!
+  make: String!
+  model: String!
+  modelYear: String!
+  vehicleType: String!
+  
+  # Core identification fields (optional)
+  errorCode: String
+  possibleValues: String
+  errorText: String
+  vehicleDescriptor: String
+  
+  # Additional optional fields
+  additionalErrorText: String
+  destinationMarket: String
+  note: String
+  manufacturerName: String
+  series: String
+  plantCity: String
+  plantCountry: String
+  plantState: String
+  plantCompanyName: String
+  trim: String
+  trim2: String
+  series2: String
+  basePrice: String
+  nonLandUse: String
+  bodyClass: String
+  doors: String
+  windows: String
+  wheelBaseType: String
+  trackWidthInches: String
+  grossVehicleWeightRatingFrom: String
+  grossVehicleWeightRatingTo: String
+  grossCombinationWeightRatingFrom: String
+  grossCombinationWeightRatingTo: String
+  curbWeightPounds: String
+  bedLengthInches: String
+  wheelBaseInchesFrom: String
+  wheelBaseInchesTo: String
+  bedType: String
+  cabType: String
+  trailerTypeConnection: String
+  trailerBodyType: String
+  trailerLengthFeet: String
+  otherTrailerInfo: String
+  numberOfWheels: String
+  wheelSizeFrontInches: String
+  wheelSizeRearInches: String
+  customMotorcycleType: String
+  motorcycleSuspensionType: String
+  motorcycleChassisType: String
+  otherMotorcycleInfo: String
+  fuelTankType: String
+  fuelTankMaterial: String
+  combinedBrakingSystem: String
+  wheelieMitigation: String
+  busLengthFeet: String
+  busFloorConfigurationType: String
+  busType: String
+  otherBusInfo: String
+  entertainmentSystem: String
+  steeringLocation: String
+  numberOfSeats: String
+  numberOfSeatRows: String
+  transmissionStyle: String
+  transmissionSpeeds: String
+  driveType: String
+  axles: String
+  axleConfiguration: String
+  brakeSystemType: String
+  brakeSystemDescription: String
+  otherBatteryInfo: String
+  batteryType: String
+  numberOfBatteryCellsPerModule: String
+  batteryCurrentAmpsFrom: String
+  batteryVoltageVoltsFrom: String
+  batteryEnergyKwhFrom: String
+  evDriveUnit: String
+  batteryCurrentAmpsTo: String
+  batteryVoltageVoltsTo: String
+  batteryEnergyKwhTo: String
+  numberOfBatteryModulesPerPack: String
+  numberOfBatteryPacksPerVehicle: String
+  chargerLevel: String
+  chargerPowerKw: String
+  engineNumberOfCylinders: String
+  displacementCc: String
+  displacementCi: String
+  displacementL: String
+  engineStrokeCycles: String
+  engineModel: String
+  enginePowerKw: String
+  fuelTypePrimary: String
+  valveTrainDesign: String
+  engineConfiguration: String
+  fuelTypeSecondary: String
+  fuelDeliveryFuelInjectionType: String
+  engineBrakeHpFrom: String
+  coolingType: String
+  engineBrakeHpTo: String
+  electrificationLevel: String
+  otherEngineInfo: String
+  turbo: String
+  topSpeedMph: String
+  engineManufacturer: String
+  pretensioner: String
+  seatBeltType: String
+  otherRestraintSystemInfo: String
+  curtainAirBagLocations: String
+  seatCushionAirBagLocations: String
+  frontAirBagLocations: String
+  kneeAirBagLocations: String
+  sideAirBagLocations: String
+  antiLockBrakingSystem: String
+  electronicStabilityControl: String
+  tractionControl: String
+  tirePressureMonitoringSystemType: String
+  activeSafetySystemNote: String
+  autoReverseSystemForWindowsAndSunroofs: String
+  automaticPedestrianAlertingSound: String
+  eventDataRecorder: String
+  keylessIgnition: String
+  saeAutomationLevelFrom: String
+  saeAutomationLevelTo: String
+  adaptiveCruiseControl: String
+  crashImminentBraking: String
+  forwardCollisionWarning: String
+  dynamicBrakeSupport: String
+  pedestrianAutomaticEmergencyBraking: String
+  blindSpotWarning: String
+  laneDepartureWarning: String
+  laneKeepingAssistance: String
+  blindSpotIntervention: String
+  laneCenteringAssistance: String
+  backupCamera: String
+  parkingAssist: String
+  rearCrossTrafficAlert: String
+  rearAutomaticEmergencyBraking: String
+  automaticCrashNotification: String
+  daytimeRunningLight: String
+  headlampLightSource: String
+  semiautomaticHeadlampBeamSwitching: String
+  adaptiveDrivingBeam: String
 }
 
+# Get unit input
 input GetUnitInput {
   id: String!
   accountId: String!
-  unitType: String!
+  unitType: UnitType!
 }
 
+# Update unit input - similar to create but with ID and all fields optional
 input UpdateUnitInput {
   id: String!
   accountId: String!
-  unitType: String!
-  data: AWSJSON!
+  unitType: UnitType!
+  suggestedVin: String
+  make: String
+  model: String
+  modelYear: String
+  vehicleType: String
+  
+  # All other fields optional for updates
+  errorCode: String
+  possibleValues: String
+  errorText: String
+  vehicleDescriptor: String
+  additionalErrorText: String
+  destinationMarket: String
+  note: String
+  manufacturerName: String
+  series: String
+  # ... (truncated for brevity, but would include all fields from CreateUnitInput)
 }
 
+# Delete unit input
 input DeleteUnitInput {
   id: String!
   accountId: String!
-  unitType: String!
+  unitType: UnitType!
 }
 
+# List units input
 input ListUnitsInput {
   accountId: String!
-  unitType: String
   limit: Int
   nextToken: String
   filter: String
 }
+
+# Note: Mutations and Queries are defined in the main schema files

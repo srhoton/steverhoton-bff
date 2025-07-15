@@ -97,6 +97,7 @@ type Event {
   accountId: String!
   eventId: String!
   unitId: String!
+  workOrderIds: [String!]!
   unitInfo: EventUnitInfo
   eventCategory: String!
   eventType: String!
@@ -241,6 +242,7 @@ input CreateEventInput {
   accountId: String!
   unitId: String!
   eventId: String!
+  workOrderIds: [String!]!
   eventCategory: String!
   eventType: String!
   severity: String
@@ -268,6 +270,7 @@ input UpdateEventInput {
   accountId: String!
   eventId: String!
   unitId: String
+  workOrderIds: [String!]
   eventCategory: String
   eventType: String
   severity: String

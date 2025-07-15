@@ -6,30 +6,35 @@ enum WorkOrderStatus {
   draft
   pending
   inProgress
-  done
+  completed
 }
 
 # Input types for work order operations
 input CreateWorkOrderInput {
-  accountId: ID!
-  contactId: ID!
+
+  accountId: String!
+  contactId: String!
+  description: String!
   status: WorkOrderStatus!
   notes: [String!]
 }
 
 input UpdateWorkOrderInput {
-  accountId: ID!
-  workOrderId: ID!
-  contactId: ID
+  accountId: String!
+  workOrderId: String!
+  contactId: String
+  description: String
   status: WorkOrderStatus
   notes: [String!]
 }
 
 # Main work order type
 type WorkOrder {
-  workOrderId: ID!
-  accountId: ID!
-  contactId: ID!
+  workOrderId: String!
+  accountId: String!
+  contactId: String!
+  unitId: String
+  description: String!
   status: WorkOrderStatus!
   notes: [String!]!
   createdAt: AWSTimestamp!

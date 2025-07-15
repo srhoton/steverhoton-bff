@@ -28,7 +28,12 @@ EOF
 
   # Response template for labor lines resolver
   labor_lines_response_template = <<EOF
-$util.toJson($context.result)
+## Labor lines lambda returns {data: {...}} format, extract the data part
+#if($context.result.data)
+  $util.toJson($context.result.data)
+#else
+  $util.toJson($context.result)
+#end
 EOF
 }
 
