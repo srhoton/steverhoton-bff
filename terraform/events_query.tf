@@ -1,7 +1,7 @@
 # Local values for events query resolver
 locals {
   # Lambda function name for events resolver
-  events_lambda_function_name = "steverhoton-events-handler-prod"
+  events_lambda_function_name = "sr-event-sandbox"
 
   # Request template for events resolver (passes through AppSync event structure)
   events_request_template = <<EOF

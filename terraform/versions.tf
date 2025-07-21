@@ -2,9 +2,9 @@ terraform {
   required_version = ">= 1.5"
 
   backend "s3" {
-    bucket = "srhoton-tfstate"
-    key    = "steverhoton-bff/terraform.tfstate"
-    region = "us-east-1"
+    bucket = "steve-rhoton-tfstate"
+    key    = "sr-bff/terraform.tfstate"
+    region = "us-west-2"
   }
 
   required_providers {

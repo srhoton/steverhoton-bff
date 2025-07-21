@@ -1,7 +1,7 @@
 # Local values for actions query resolver
 locals {
   # Lambda function name for actions resolver
-  actions_lambda_function_name = "action-lambda-dev-handler"
+  actions_lambda_function_name = "sr-action-sandbox"
 
   # Request template for actions resolver (passes through AppSync event structure)
   actions_request_template = <<EOF

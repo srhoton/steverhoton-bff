@@ -1,7 +1,7 @@
 # Local values for labor lines query resolver
 locals {
   # Lambda function name for labor lines resolver
-  labor_lines_lambda_function_name = "labor-lines-prod-labor-lines-handler"
+  labor_lines_lambda_function_name = "sr-labor-line-sandbox"
 
   # Request template for labor lines resolver (matches labor lines lambda AppSyncEvent structure)
   labor_lines_request_template = <<EOF

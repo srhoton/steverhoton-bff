@@ -1,7 +1,7 @@
 # Local values for tasks query resolver
 locals {
-  # Lambda function name for tasks resolver  
-  tasks_lambda_function_name = "maintenance-task-dev-lambda"
+  # Lambda function name for tasks resolver
+  tasks_lambda_function_name = "sr-task-sandbox"
 
   # Request template for tasks resolver
   tasks_request_template = <<EOF
