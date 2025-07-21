@@ -1,7 +1,7 @@
 # Local values for location query resolver
 locals {
   # Lambda function name for location resolver
-  location_lambda_function_name = "location-prod-location-handler"
+  location_lambda_function_name = "sr-location-sandbox"
 
   # Request template for queries (direct arguments)
   location_query_request_template = <<EOF

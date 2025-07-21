@@ -1,7 +1,7 @@
 # Local values for account query resolver
 locals {
   # Lambda function name for account resolver
-  account_lambda_function_name = "steverhoton-account-prod-account-crud-handler"
+  account_lambda_function_name = "sr-account-sandbox"
 
   # Request template for account resolver (passes through AppSync event structure)
   account_request_template = <<EOF

@@ -1,7 +1,7 @@
 # Local values for contact query resolver
 locals {
   # Lambda function name for contact resolver
-  contact_lambda_function_name = "contact-api-prod-contact-resolver"
+  contact_lambda_function_name = "sr-contact-sandbox"
 
   # Request template for contact resolver (passes through AppSync event structure)
   contact_request_template = <<EOF

@@ -1,7 +1,7 @@
 # Local values for work orders query resolver
 locals {
   # Lambda function name for work orders resolver
-  work_orders_lambda_function_name = "work-order-dev-lambda"
+  work_orders_lambda_function_name = "sr-work-order-sandbox"
   # Request template for work orders resolver
   work_orders_request_template = <<EOF
 {

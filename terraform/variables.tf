@@ -1,13 +1,13 @@
 variable "aws_region" {
   description = "AWS region for resources"
   type        = string
-  default     = "us-east-1"
+  default     = "us-west-2"
 }
 
 variable "project" {
   description = "Project name for resource naming and tagging"
   type        = string
-  default     = "steverhoton-bff"
+  default     = "sr-bff"
 
   validation {
     condition     = can(regex("^[a-z0-9-]+$", var.project))
@@ -18,18 +18,18 @@ variable "project" {
 variable "environment" {
   description = "Environment name (e.g., dev, staging, prod)"
   type        = string
-  default     = "prod"
+  default     = "sandbox"
 
   validation {
-    condition     = contains(["dev", "staging", "prod"], var.environment)
-    error_message = "Environment must be one of: dev, staging, prod."
+    condition     = contains(["dev", "staging", "prod", "sandbox"], var.environment)
+    error_message = "Environment must be one of: sandbox, dev, staging, prod."
   }
 }
 
 variable "domain_name" {
   description = "Base domain name"
   type        = string
-  default     = "steverhoton.com"
+  default     = "sb.fullbay.com"
 
   validation {
     condition     = can(regex("^[a-z0-9.-]+\\.[a-z]{2,}$", var.domain_name))
@@ -40,7 +40,7 @@ variable "domain_name" {
 variable "bff_subdomain" {
   description = "Subdomain for the BFF AppSync endpoint"
   type        = string
-  default     = "bff"
+  default     = "sr-bff"
 
   validation {
     condition     = can(regex("^[a-z0-9-]+$", var.bff_subdomain))
@@ -51,7 +51,7 @@ variable "bff_subdomain" {
 variable "cognito_user_pool_id" {
   description = "ID of the existing Cognito User Pool (if known, takes precedence over name)"
   type        = string
-  default     = "us-east-1_plhb9FhBb"
+  default     = "us-west-2_Sg0RnpexL"
 }
 
 variable "api_response_message" {

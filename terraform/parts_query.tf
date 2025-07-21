@@ -1,7 +1,7 @@
 # Local values for parts query resolver
 locals {
   # Lambda function name for parts resolver
-  parts_lambda_function_name = "parts-service-dev-parts-handler"
+  parts_lambda_function_name = "sr-part-sandbox"
 
   # Request template for parts resolver (passes through AppSync event structure)
   parts_request_template = <<EOF

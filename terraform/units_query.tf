@@ -1,7 +1,7 @@
 # Local values for units query resolver
 locals {
   # Lambda function name for units resolver
-  units_lambda_function_name = "unt-units-svc-prod-lambda"
+  units_lambda_function_name = "sr-unit-sandbox"
 
   # Request template for units resolver (passes input directly to match CreateUnitInput structure)
   units_request_template = <<EOF
