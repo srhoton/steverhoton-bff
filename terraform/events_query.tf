@@ -171,3 +171,16 @@ resource "aws_appsync_resolver" "delete_event" {
 
   depends_on = [aws_appsync_graphql_api.bff_api]
 }
+
+# AppSync Resolver for listEventsByWorkOrder query
+resource "aws_appsync_resolver" "list_events_by_work_order" {
+  api_id      = aws_appsync_graphql_api.bff_api.id
+  data_source = aws_appsync_datasource.events_lambda.name
+  field       = "listEventsByWorkOrder"
+  type        = "Query"
+
+  request_template  = local.events_request_template
+  response_template = local.events_response_template
+
+  depends_on = [aws_appsync_graphql_api.bff_api]
+}
