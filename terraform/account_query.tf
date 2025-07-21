@@ -25,85 +25,8 @@ EOF
 
   # Response template for account resolver with DateTime handling
   account_response_template = <<EOF
-## First, convert the result to a modifiable object
-#set($modifiedResult = $util.toJson($context.result))
-#set($result = $util.parseJson($modifiedResult))
-
-#if($result)
-  ## Handle single account response (for getAccount, createAccount, updateAccount)
-  #if($result.id)
-    #if($result.createdAt && $result.createdAt != "")
-      ## Try multiple date formats
-      #set($dateStr = $result.createdAt.toString())
-      #if($dateStr.matches("^\d+$"))
-        ## Already a number, use as-is
-        #set($createdAtEpoch = $dateStr)
-      #elseif($dateStr.contains("."))
-        ## Format: 2025-07-21T19:04:38.123Z
-        #set($createdAtEpoch = $util.time.parseFormattedDate("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", $dateStr))
-      #else
-        ## Format: 2025-07-21T19:04:38Z
-        #set($createdAtEpoch = $util.time.parseFormattedDate("yyyy-MM-dd'T'HH:mm:ss'Z'", $dateStr))
-      #end
-      $util.qr($result.put("createdAt", $createdAtEpoch))
-    #end
-    
-    #if($result.updatedAt && $result.updatedAt != "")
-      ## Try multiple date formats
-      #set($dateStr = $result.updatedAt.toString())
-      #if($dateStr.matches("^\d+$"))
-        ## Already a number, use as-is
-        #set($updatedAtEpoch = $dateStr)
-      #elseif($dateStr.contains("."))
-        ## Format: 2025-07-21T19:04:38.123Z
-        #set($updatedAtEpoch = $util.time.parseFormattedDate("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", $dateStr))
-      #else
-        ## Format: 2025-07-21T19:04:38Z
-        #set($updatedAtEpoch = $util.time.parseFormattedDate("yyyy-MM-dd'T'HH:mm:ss'Z'", $dateStr))
-      #end
-      $util.qr($result.put("updatedAt", $updatedAtEpoch))
-    #end
-  #end
-  
-  ## Handle list response (for listAccounts)
-  #if($result.items)
-    #foreach($item in $result.items)
-      #if($item.createdAt && $item.createdAt != "")
-        ## Try multiple date formats
-        #set($dateStr = $item.createdAt.toString())
-        #if($dateStr.matches("^\d+$"))
-          ## Already a number, use as-is
-          #set($createdAtEpoch = $dateStr)
-        #elseif($dateStr.contains("."))
-          ## Format: 2025-07-21T19:04:38.123Z
-          #set($createdAtEpoch = $util.time.parseFormattedDate("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", $dateStr))
-        #else
-          ## Format: 2025-07-21T19:04:38Z
-          #set($createdAtEpoch = $util.time.parseFormattedDate("yyyy-MM-dd'T'HH:mm:ss'Z'", $dateStr))
-        #end
-        $util.qr($item.put("createdAt", $createdAtEpoch))
-      #end
-      
-      #if($item.updatedAt && $item.updatedAt != "")
-        ## Try multiple date formats
-        #set($dateStr = $item.updatedAt.toString())
-        #if($dateStr.matches("^\d+$"))
-          ## Already a number, use as-is
-          #set($updatedAtEpoch = $dateStr)
-        #elseif($dateStr.contains("."))
-          ## Format: 2025-07-21T19:04:38.123Z
-          #set($updatedAtEpoch = $util.time.parseFormattedDate("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", $dateStr))
-        #else
-          ## Format: 2025-07-21T19:04:38Z
-          #set($updatedAtEpoch = $util.time.parseFormattedDate("yyyy-MM-dd'T'HH:mm:ss'Z'", $dateStr))
-        #end
-        $util.qr($item.put("updatedAt", $updatedAtEpoch))
-      #end
-    #end
-  #end
-#end
-
-$util.toJson($result)
+## DEBUG: Simple passthrough to see what Lambda returns
+$util.toJson($context.result)
 EOF
 }
 
