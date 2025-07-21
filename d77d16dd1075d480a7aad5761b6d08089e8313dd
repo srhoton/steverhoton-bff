@@ -1,0 +1,15 @@
+Session prompts and context:
+1. User requested verification of authentication through BFF using credentials from ~/git/tmp/passbf.json
+2. Successfully tested authentication flow:
+   - Cognito authentication with USER_PASSWORD_AUTH flow
+   - JWT ID token retrieval and validation
+   - GraphQL endpoint authentication verification
+3. User then requested creating account/contact structure:
+   - Create account named "ProductTeam"
+   - Add contact with email "product@fullbay.com", contactType "employee", status "active"
+   - Set contact as billingContactId for the account
+4. Successfully completed all GraphQL operations:
+   - Created account ID: productteam-final
+   - Created contact ID: 42dce172-81b8-476b-8829-638331d128c5
+   - Updated account with billing contact relationship
+5. User requested commit with git notes, push, and PR creation via GitHub MCP
