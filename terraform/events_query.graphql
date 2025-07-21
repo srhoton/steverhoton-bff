@@ -336,5 +336,13 @@ input ListEventsByStatusInput {
   nextToken: String
 }
 
+# List events by work order input
+input ListEventsByWorkOrderInput {
+  accountId: String!
+  workOrderId: String!
+  limit: Int
+  nextToken: String
+}
+
 # Event operations are defined in the main Query and Mutation types
 # in authenticated_query.graphql and contact_query.graphql respectively
